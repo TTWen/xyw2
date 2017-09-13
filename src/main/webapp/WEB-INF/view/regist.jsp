@@ -7,9 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="doLogin" method="post">
-		uname:<input type="text" name="uname"/>
-		psw:<input type="password" name="psw"/>
+	<form action="doRegist" method="post">
+		uname:<input type="text" name="uname"/><br>
+		upsw:<input type="password" name="upsw"/><br>
+		utel:<input type="text" name="utel"/><br>
+		uem:<input type="text" name="uem"/><br>
+		uad:<input type="text" name="uad"/><br>
+		uurl:<input type="text" name="uurl"/><br>
 		<input type="submit"/>
 	</form>
 </body>

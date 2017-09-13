@@ -7,6 +7,6 @@
 <title>首页</title>
 </head>
 <body>
-	<a href="login">登录</a>
+	<a href="user/login">登录</a>
 </body>
 </html>
