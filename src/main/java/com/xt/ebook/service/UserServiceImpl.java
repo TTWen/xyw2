@@ -43,4 +43,9 @@ public class UserServiceImpl implements IUserService {
 		userDao.update(user);
 	}
 
+	public User findById(int uid) {
+		
+		return userDao.findById(uid);
+	}
+
 }

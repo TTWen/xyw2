@@ -36,7 +36,8 @@ public class UserController {
 	@RequestMapping(value = "/user/doLogin")
 	public String doLogin(String uname, String upsw) {
 		
-		if( userService.login(uname, upsw) != null) {
+		User user = (User) userService.login(uname, upsw).get(0);
+		if( user != null) {
 			
 			return "index";
 		}
@@ -51,15 +52,24 @@ public class UserController {
 		return "login";
 	}
 	
-	// 用户修改个人信息
-	@RequestMapping(value = "/user/modify")
-	public String modifyInfo(User user) {
-		
-		userService.update(user);
-		return "";
+	// 用户个人信息
+	@RequestMapping(value = "/user/info/{uid}")
+	public String modifyInfo(@PathVariable int uid, Model model) {
+		User user = userService.findById(uid);
+		model.addAttribute("user", user);
+		return "info";
 	}
 	
-	
+	// 修改个人信息
+	@RequestMapping(value = "/user/modify/{uid}")
+	public String modifyInfo(@PathVariable int uid, User user, Model model) {
+		
+		User u2 = userService.findById(uid);
+		user.setUpsw(u2.getUpsw());
+		user.setUid(uid);
+		userService.update(user);
+		return "index";
+	}
 	
 	// 管理用户页面
 	@RequestMapping(value = "/manage/user")
@@ -80,6 +90,6 @@ public class UserController {
 		int allPages = userService.userCnt();
 		model.addAttribute("userList", userList);
 		model.addAttribute("allPages", allPages);
-		return "/manage/pages/" + pageNow;
+		return "/manage/user/" + pageNow;
 	}
 }

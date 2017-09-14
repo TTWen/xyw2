@@ -54,23 +54,13 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public T findById(PK id) {
+	public T findById(int id) {
 
 		return (T) getHibernateTemplate().get(cls, id);
 	}
 
-	public List<T> findByIds(PK[] ids) {
 
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<T> findByPage(int pageNow, int pageSize) {
-
-		HibernateTemplate ht = getHibernateTemplate();
-		DetachedCriteria criteria = DetachedCriteria.forClass(cls);
-		return (List<T>) ht.findByCriteria(criteria, pageNow, pageSize);
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(String hql, String[] param) {
@@ -87,6 +77,14 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<T> findByPage(int pageNow, int pageSize) {
+
+		HibernateTemplate ht = getHibernateTemplate();
+		DetachedCriteria criteria = DetachedCriteria.forClass(cls);
+		return (List<T>) ht.findByCriteria(criteria, pageNow, pageSize);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
 			boolean isAsc, Criterion... criterions) {
 		
@@ -99,7 +97,8 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 		else
 			criteria.addOrder(Order.desc(orderBy));
 
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+		return (List<T>) getHibernateTemplate().findByCriteria
+				(criteria, pageNow, pageSize);
 	}
 
 	public List<T> findByPage(int pageNow, int pageSize, String orderBy,

@@ -13,7 +13,7 @@ public class User {
 	@Id
 	@GeneratedValue
 	@Column(name = "uid", nullable = false)
-	private String uid;
+	private int uid;
 	
 	@Column(name = "uname", nullable = false)
 	private String uname;
@@ -33,11 +33,11 @@ public class User {
 	@Column(name = "uurl", nullable = true)
 	private String uurl;
 
-	public String getUid() {
+	public int getUid() {
 		return uid;
 	}
 
-	public void setUid(String uid) {
+	public void setUid(int uid) {
 		this.uid = uid;
 	}
 

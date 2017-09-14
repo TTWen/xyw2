@@ -13,6 +13,8 @@ public interface IUserService {
 
 	public List<User> findByPage(int pageNow, int size);
 	
+	public User findById(int uid);
+	
 	public int userCnt();
 	
 	public void update(User user);

@@ -17,7 +17,7 @@ public interface IBaseDAO<T, PK extends Serializable> {
 	public void update(T t);
 
 	// 根据id查询
-	public T findById(PK id);
+	public T findById(int id);
 
 	// 分页
 	public List<T> findByPage(int pageNow, int pageSize);
