@@ -9,7 +9,7 @@
 <body>
 	<form action="doLogin" method="post">
 		uname:<input type="text" name="uname"/>
-		psw:<input type="password" name="psw"/>
+		upsw:<input type="password" name="upsw"/>
 		<input type="submit"/>
 	</form>
 </body>
