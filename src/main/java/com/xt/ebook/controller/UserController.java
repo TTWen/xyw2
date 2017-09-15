@@ -18,6 +18,13 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 
+	// index
+	@RequestMapping(value = "/index")
+	public String index() {
+		
+		return "index";
+	}
+	
 	// 返回登录 view
 	@RequestMapping(value = "/user/login")
 	public String login() {
@@ -40,7 +47,7 @@ public class UserController {
 		if( user != null) {
 			
 			return "index";
-		}
+		} 
 		return "login";
 	}
 	
@@ -68,7 +75,8 @@ public class UserController {
 		user.setUpsw(u2.getUpsw());
 		user.setUid(uid);
 		userService.update(user);
-		return "index";
+		model.addAttribute("msg", "修改个人信息成功！");
+		return "success";
 	}
 	
 	// 管理用户页面
@@ -86,10 +94,12 @@ public class UserController {
 	@RequestMapping(value = "/manage/user/{pageNow}")
 	public String userList(@PathVariable("pageNow") int pageNow, Model model) {
 		
-		List<User> userList = userService.findByPage(pageNow, 10);
+		int pageSize = 10;
+		List<User> userList = userService.findByPage(pageNow, pageSize);
 		int allPages = userService.userCnt();
 		model.addAttribute("userList", userList);
 		model.addAttribute("allPages", allPages);
-		return "/manage/user/" + pageNow;
+		model.addAttribute("pageNow", pageNow);
+		return "/manage/user";
 	}
 }

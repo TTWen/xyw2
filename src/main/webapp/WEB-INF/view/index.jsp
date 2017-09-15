@@ -10,8 +10,9 @@
 	<a href="/ebook/user/login">登录</a>
 	<a href="/ebook/user/register">注册</a>
 	<a href="/ebook/user/info/1">我的账户</a>
-	<form action="/ebook/book/search" method="post">
+	<form action="/ebook/book/search/0" method="post">
 		<input name="keyword"/>
+		<input type="submit">
 	</form>
 </body>
 </html>

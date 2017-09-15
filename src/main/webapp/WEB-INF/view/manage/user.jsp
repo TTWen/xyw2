@@ -14,7 +14,6 @@
             <th><c:out value="${u.upsw}" /></th>   
             <th><c:out value="${u.utel}" /></th>   
         </tr>
-        
      </c:forEach>
      共<c:out value="${allPages}" />页
 </body>

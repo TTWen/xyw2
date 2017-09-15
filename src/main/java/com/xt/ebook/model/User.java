@@ -32,7 +32,7 @@ public class User {
 	
 	@Column(name = "uurl", nullable = true)
 	private String uurl;
-
+	
 	public int getUid() {
 		return uid;
 	}
@@ -89,11 +89,7 @@ public class User {
 		this.uurl = uurl;
 	}
 
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", uname=" + uname + ", upsw=" + upsw
-				+ ", utel=" + utel + ", uem=" + uem + ", uad=" + uad
-				+ ", uurl=" + uurl + "]";
-	}
+	
 
+	
 }

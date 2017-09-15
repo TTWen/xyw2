@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="">
+<form action="/ebook/manage/deleteSort" method="post">
 	<c:forEach items="${sortList}" var="s">   
-        <tr>  
-        	<th><input type="checkbox" name="sid" value="${s.sid}">id:<c:out value="${s.sid}" /></th>
+        <tr>  <input type="checkbox" name="sid" value="${s.sid}">
+        	<th>id:<c:out value="${s.sid}" /></th>
             <th>sname：<c:out value="${s.sname}" /></th>   
         </tr>
      </c:forEach>

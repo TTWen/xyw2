@@ -8,7 +8,7 @@ public interface ISortService {
 
 	public void add(Sort sort);
 	
-	public void delete(Sort sort);
+	public void delete(String[] sid);
 	
 	public List<Sort> findAll();
 }

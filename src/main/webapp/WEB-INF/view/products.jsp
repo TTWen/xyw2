@@ -8,28 +8,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/ebook/manage/deleteBook" target="_blank" method="post">
-	<c:forEach items="${bookList}" var="b">   
-<input type="checkbox" name="bid"/>
+<c:forEach items="${bookList}" var="b">   
         <tr>  
             <th>bname:<c:out value="${b.bname}" /></th>   
             <th>burl:<c:out value="${b.bsalenum}" /></th>  
             <th>bsalepr:<c:out value="${b.bsalepr}" /></th>   <br>
         </tr>
      </c:forEach>
-      <input type="submit" value="删除"/>
-</form>
-
-     
 共<c:out value="${allPages}" />页<br>
 当前页：<c:out value="${pageNow + 1}" /><br>
 <c:if test="${pageNow != 0}">
-	<a href="/ebook/manage/book/${pageNow - 1}">上</a>
+	<a href="/ebook/products/${pageNow - 1}">上</a>
 </c:if>
 
-<c:if test="${pageNow < allPages}">
-	<a href="/ebook/manage/book/${pageNow + 1}">下</a>
+<c:if test="${pageNow + 1 < allPages}">
+	<a href="/ebook/products/${pageNow + 1}">下</a>
 </c:if>
-
 </body>
 </html>

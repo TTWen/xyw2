@@ -48,4 +48,11 @@ public class ManagerController {
 		mngService.regist(mng);
 		return "/manage/login";
 	}
+	
+	// 返回后台index view
+	@RequestMapping(value = "/manage/admindex")
+	public String index() {
+		
+		return "/manage/admindex";
+	}
 }

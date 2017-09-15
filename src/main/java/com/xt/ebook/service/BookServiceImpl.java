@@ -20,9 +20,9 @@ public class BookServiceImpl implements IBookService {
 
 	}
 
-	public void delete(Book bk) {
+	public void delete(String[] bid) {
 		// TODO Auto-generated method stub
-		bookDao.delete(bk);
+		bookDao.delete(bid, "bid");
 
 	}
 
@@ -40,8 +40,7 @@ public class BookServiceImpl implements IBookService {
 
 	public int bookCnt() {
 		// TODO Auto-generated method stub
-		String hql = "select count(1) from book as b";
-		return bookDao.cnt(hql);
+		return bookDao.cnt("Book");
 	}
 
 	public List<Book> rank() {
@@ -60,6 +59,12 @@ public class BookServiceImpl implements IBookService {
 			boolean isAsc, String keyword) {
 		// TODO Auto-generated method stub
 		return bookDao.findByPage(pageNow, pageSize, orderBy, isAsc, keyword);
+	}
+
+	public Book findById(int id) {
+		// TODO Auto-generated method stub
+		
+		return bookDao.findById(id);
 	}
 
 }

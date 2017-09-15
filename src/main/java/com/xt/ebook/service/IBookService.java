@@ -10,10 +10,13 @@ public interface IBookService {
 	public void create(Book bk);
 
 	// 删除
-	public void delete(Book bk);
+	public void delete(String[] bid);
 
 	// 修改信息
 	public void update(Book bk);
+	
+	// 查询图书详细信息
+	public Book findById(int id);
 
 	// 图书分页
 	public List<Book> findByPage(int pageNow, int pageSize);

@@ -33,8 +33,8 @@ public class Book {
 	@Column(name = "bsalepr", nullable = false)
 	private float bsalepr;
 
-	@Column(name = "stock", nullable = false)
-	private int stock;
+	@Column(name = "bstock", nullable = false)
+	private int bstock;
 
 	@Column(name = "bpurnum", nullable = false)
 	private int bpurnum;
@@ -44,6 +44,17 @@ public class Book {
 
 	@Column(name = "bexpl", nullable = false)
 	private String bexpl;
+
+	@Column(name = "bpub", nullable = false)
+	private String bpub;
+	
+	public String getBpub() {
+		return bpub;
+	}
+
+	public void setBpub(String bpub) {
+		this.bpub = bpub;
+	}
 
 	public int getBid() {
 		return bid;
@@ -101,12 +112,12 @@ public class Book {
 		this.bsalepr = bsalepr;
 	}
 
-	public int getStock() {
-		return stock;
+	public int getBstock() {
+		return bstock;
 	}
 
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setBstock(int bstock) {
+		this.bstock = bstock;
 	}
 
 	public int getBpurnum() {
@@ -137,9 +148,11 @@ public class Book {
 	public String toString() {
 		return "Book [bid=" + bid + ", bname=" + bname + ", bauth=" + bauth
 				+ ", bpdate=" + bpdate + ", bisbn=" + bisbn + ", bpurpr="
-				+ bpurpr + ", bsalepr=" + bsalepr + ", stock=" + stock
+				+ bpurpr + ", bsalepr=" + bsalepr + ", bstock=" + bstock
 				+ ", bpurnum=" + bpurnum + ", bsalenum=" + bsalenum
-				+ ", bexpl=" + bexpl + "]";
+				+ ", bexpl=" + bexpl + ", bpub=" + bpub + "]";
 	}
+
+
 
 }

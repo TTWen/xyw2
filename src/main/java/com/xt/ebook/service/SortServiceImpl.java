@@ -19,9 +19,9 @@ public class SortServiceImpl implements ISortService {
 		sortDao.add(sort);
 	}
 
-	public void delete(Sort sort) {
+	public void delete(String[] sid) {
 		
-		sortDao.delete(sort);
+		sortDao.delete(sid, "sid");
 	}
 
 	public List<Sort> findAll() {
