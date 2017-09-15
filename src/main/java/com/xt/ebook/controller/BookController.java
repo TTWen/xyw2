@@ -7,12 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.xt.ebook.model.Book;
 import com.xt.ebook.model.Sort;
 import com.xt.ebook.model.User;
 import com.xt.ebook.service.IBookService;
 import com.xt.ebook.service.ISortService;
+import com.xt.ebook.util.UploadFile;
 
 @Controller
 public class BookController {
@@ -52,6 +54,14 @@ public class BookController {
 		return "/products";
 	}
 	
+	// 图书详情
+	@RequestMapping(value = "/bookDetail/{bid}")
+	public String bookDetail(@PathVariable int bid,Model model) {
+
+		model.addAttribute("book", bookService.findById(bid));
+		return "/bookDetail";
+	}
+	
 	// 添加图书 view
 	@RequestMapping(value = "/manage/book/add")
 	public String addBook() {
@@ -61,13 +71,27 @@ public class BookController {
 
 	// 添加图书
 	@RequestMapping(value = "/manage/book/addBook")
-	public String addBook(Book book, Model model) {
+	public String addBook(Book book, Model model, MultipartFile file) throws Exception {
 		bookService.create(book);
-
+		UploadFile.doUpload("C:/ebook/book/", file, book.getBid());
+		
 		model.addAttribute("msg", "添加图书成功");
-		return "success";
+		return "/manage/book";
 	}
 
+	// 图书一览
+	@RequestMapping(value = "/manage/book")
+	public String book2(Model model) {
+		int pageSize = 2;
+		List<Book> bookList = bookService.findByPage(0, pageSize);
+		// 没考虑cnt == 0
+		int allPages = (bookService.bookCnt() -1)/pageSize + 1;
+		model.addAttribute("bookList", bookList);
+		model.addAttribute("pageNow", 0);
+		model.addAttribute("allPages", allPages);
+		return "/manage/book";
+	}
+		
 	// 图书一览
 	@RequestMapping(value = "/manage/book/{pageNow}")
 	public String book(@PathVariable int pageNow, Model model) {
@@ -80,18 +104,7 @@ public class BookController {
 		model.addAttribute("allPages", allPages);
 		return "/manage/book";
 	}
-	// 图书一览
-	@RequestMapping(value = "/manage/book")
-	public String book2(@PathVariable int pageNow, Model model) {
-		int pageSize = 2;
-		List<Book> bookList = bookService.findByPage(0, pageSize);
-		// 没考虑cnt == 0
-		int allPages = (bookService.bookCnt() -1)/pageSize + 1;
-		model.addAttribute("bookList", bookList);
-		model.addAttribute("pageNow", pageNow);
-		model.addAttribute("allPages", allPages);
-		return "/manage/book";
-	}
+	
 
 	// 图书修改 view
 	@RequestMapping(value = "/manage/book/modify/{bid}")
@@ -161,5 +174,17 @@ public class BookController {
 		model.addAttribute("sortList", sortService.findAll());
 		return "/manage/sort";
 	}
+	
+	// 购买
+	@RequestMapping(value = "/book/buy")
+	public String buy(int bid, int num, Model model) {
 
+		Book b = bookService.findById(bid);
+		b.setBstock(b.getBstock() - num);
+		b.setBsalenum(b.getBsalenum() + num);
+		bookService.update(b);
+		model.addAttribute("book", b);
+		model.addAttribute("msg", "购买成功！");
+		return "/bookDetail";
+	}
 }

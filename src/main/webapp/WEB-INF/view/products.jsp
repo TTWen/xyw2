@@ -10,7 +10,8 @@
 <body>
 <c:forEach items="${bookList}" var="b">   
         <tr>  
-            <th>bname:<c:out value="${b.bname}" /></th>   
+            <th><a href="/ebook/bookDetail/${b.bid }">bname:<c:out value="${b.bname}" /></a> </th>   
+            <th><img src="/book/${b.bid}.jpeg"> </th>
             <th>burl:<c:out value="${b.bsalenum}" /></th>  
             <th>bsalepr:<c:out value="${b.bsalepr}" /></th>   <br>
         </tr>
@@ -21,7 +22,7 @@
 	<a href="/ebook/products/${pageNow - 1}">上</a>
 </c:if>
 
-<c:if test="${pageNow + 1 < allPages}">
+<c:if test="${pageNow + 1 != allPages}">
 	<a href="/ebook/products/${pageNow + 1}">下</a>
 </c:if>
 </body>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/ebook/manage/book/addBook" method="post">
+<form action="/ebook/manage/book/addBook" method="post" enctype="multipart/form-data">
 		bname:<input type="text" name="bname"/><br>
 		bauth:<input type="text" name="bauth"/><br>
 		bpub:<input type="text" name="bpub"/><br>
@@ -19,6 +19,7 @@
 		bpurnum:<input type="text" name="bpurnum"/><br>
 		bsalenum:<input type="text" name="bsalenum"/><br>
 		bexpl:<input type="text" name="bexpl"/><br>
+		<input type="file" name="file">
 		<input type="submit"/>
 	</form>
 </body>

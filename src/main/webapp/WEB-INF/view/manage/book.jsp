@@ -27,7 +27,7 @@
 	<a href="/ebook/manage/book/${pageNow - 1}">上</a>
 </c:if>
 
-<c:if test="${pageNow < allPages}">
+<c:if test="${pageNow + 1 != allPages}">
 	<a href="/ebook/manage/book/${pageNow + 1}">下</a>
 </c:if>
 
