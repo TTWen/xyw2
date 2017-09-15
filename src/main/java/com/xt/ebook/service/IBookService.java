@@ -27,10 +27,12 @@ public interface IBookService {
 	// 按关键字搜索
 	public List<Book> findByKeyword(int pageNow, int pageSize, String orderBy,
 			boolean isAsc, String keyword);
-	
+	// 按关键字搜索全部
+	public List<Book> findByKeyword(String keyword);
 	// 总数
 	public int bookCnt();
 
+	
 	// 排行榜（累计销量）
 	public List<Book> rank();
 

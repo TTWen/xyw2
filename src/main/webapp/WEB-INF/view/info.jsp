@@ -9,12 +9,11 @@
 </head>
 <body>
 
-	<form action="/ebook/user/modify/1" method="post">
-		uname:<c:out value="${user.uname}" /><input type="text" name="uname"/><br>
-		utel:<c:out value="${user.utel}" /><input type="text" name="utel"/><br>
-		uem:<c:out value="${user.uem}" /><input type="text" name="uem"/><br>
-		uad:<c:out value="${user.uad}" /><input type="text" name="uad"/><br>
-		uurl:<c:out value="${user.uurl}" /><input type="text" name="uurl"/><br>
+	<form action="/ebook/user/modify" method="post" >
+		uname:<input type="text" name="uname" value="${user.uname}"/><br>
+		utel:<input type="text" name="utel" value="${user.utel}"/><br>
+		uem:<input type="text" name="uem" value="${user.uem}"/><br>
+		uad:<input type="text" name="uad" value="${user.uad}"/><br>
 		<input type="submit"/>
 	</form>
 </body>

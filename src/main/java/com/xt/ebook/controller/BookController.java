@@ -31,7 +31,8 @@ public class BookController {
 
 		List<Book> bookList = bookService.findByKeyword(pageNow, pageSize,
 				"bsalenum", true, keyword);
-		int allPages = (bookList.size()-1)/pageSize + 1;
+		int liSize = bookService.findByKeyword(keyword).size();
+		int allPages = (liSize - 1)/pageSize + 1;
 		model.addAttribute("bookList", bookList);
 		model.addAttribute("allPages", allPages);
 		model.addAttribute("pageNow", pageNow);

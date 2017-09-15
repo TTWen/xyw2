@@ -76,7 +76,6 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 		String hql = "select count(1) from "+ tblname;
 		return Integer.parseInt(String.valueOf(getHibernateTemplate().iterate(
 				hql).next()));
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -142,4 +141,30 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
             }
         });
 	}
+
+	public int cnt(String tblname, String criteria) {
+		// TODO Auto-generated method stub
+		String hql = "select count(1) from "+ tblname +criteria;
+		return Integer.parseInt(String.valueOf(getHibernateTemplate().iterate(
+				hql).next()));
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(Criterion... criterions) {
+		// TODO Auto-generated method stub
+		DetachedCriteria criteria = DetachedCriteria.forClass(cls);
+		for (Criterion c : criterions) {
+			criteria.add(c);
+		}
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	public List<T> findByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return findAll(Restrictions.or(
+				Restrictions.like("bname", keyword, MatchMode.ANYWHERE),
+				Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
+				Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
+	}
+
 }

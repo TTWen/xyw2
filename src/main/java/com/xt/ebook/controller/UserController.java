@@ -2,15 +2,19 @@ package com.xt.ebook.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xt.ebook.model.User;
 import com.xt.ebook.service.IUserService;
+import com.xt.ebook.util.UploadFile;
 
 @Controller
 public class UserController {
@@ -39,16 +43,30 @@ public class UserController {
 		return "register";
 	}
 	
+	// 返回注销 view
+	@RequestMapping(value = "/user/logout")
+	public String logout(HttpSession session) {
+		
+		session.removeAttribute("crtuid");
+		return "redirect:/index";
+	}
+	
 	// 登录
 	@RequestMapping(value = "/user/doLogin")
-	public String doLogin(String uname, String upsw) {
+	public String doLogin(String uname, String upsw, Model model, 
+			HttpSession session) {
 		
-		User user = (User) userService.login(uname, upsw).get(0);
-		if( user != null) {
+		List <User> li = userService.login(uname, upsw);
+		if( !li.isEmpty() ) {
+			session.setAttribute("crtuid", li.get(0).getUid());
+			session.setAttribute("crtuser", li.get(0));
+			return "redirect:/index";
+		} else {
 			
-			return "index";
-		} 
-		return "login";
+			model.addAttribute("msg", "登录失败！");
+			return "/login";
+		}
+		
 	}
 	
 	// 注册
@@ -60,23 +78,42 @@ public class UserController {
 	}
 	
 	// 用户个人信息
-	@RequestMapping(value = "/user/info/{uid}")
-	public String modifyInfo(@PathVariable int uid, Model model) {
+	@RequestMapping(value = "/user/info")
+	public String modifyInfo(Model model, HttpSession session) {
+		
+		int uid = Integer.valueOf((String) session.getAttribute("crtuid"));
 		User user = userService.findById(uid);
 		model.addAttribute("user", user);
 		return "info";
 	}
 	
 	// 修改个人信息
-	@RequestMapping(value = "/user/modify/{uid}")
-	public String modifyInfo(@PathVariable int uid, User user, Model model) {
+	@RequestMapping(value = "/user/modify")
+	public String modifyInfo(User user, Model model, HttpSession session) throws Exception {
 		
+		int uid = Integer.valueOf((String) session.getAttribute("crtuid"));
 		User u2 = userService.findById(uid);
 		user.setUpsw(u2.getUpsw());
 		user.setUid(uid);
+		user.setUurl(u2.getUurl());
+		
 		userService.update(user);
 		model.addAttribute("msg", "修改个人信息成功！");
-		return "success";
+		return "/index";
+	}
+	
+	// 修改头像
+	@RequestMapping(value = "/user/modifyIcon")
+	public String modifyIcon(MultipartFile file, Model model, HttpSession session) throws Exception {
+		
+		int uid = Integer.parseInt(session.getAttribute("crtuid").toString());
+		User user = userService.findById(uid);
+		String path = UploadFile.doUpload("E:/ebook/icon/", file, uid);
+		user.setUurl(path);
+		
+		userService.update(user);
+		model.addAttribute("msg", "修改头像成功！");
+		return "/index";
 	}
 	
 	// 管理用户页面

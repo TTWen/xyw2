@@ -36,9 +36,14 @@ public interface IBaseDAO<T, PK extends Serializable> {
 	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
 			boolean isAsc, String keyword);
 
+	public List<T> findAll(Criterion... criterions);
+	
+	// 关键字搜索
+	public List<T> findByKeyword(String keyword);
+	
 	// 总数
 	public int cnt(String tblname);
-
+	
 	// 根据具体的hql语句查找实体类
 	public List<T> find(String hql, String[] param);
 

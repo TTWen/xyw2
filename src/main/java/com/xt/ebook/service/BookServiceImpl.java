@@ -2,6 +2,7 @@ package com.xt.ebook.service;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +66,11 @@ public class BookServiceImpl implements IBookService {
 		// TODO Auto-generated method stub
 		
 		return bookDao.findById(id);
+	}
+
+	public List<Book> findByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return bookDao.findByKeyword(keyword);
 	}
 
 }

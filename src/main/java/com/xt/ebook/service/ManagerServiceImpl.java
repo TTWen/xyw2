@@ -26,5 +26,15 @@ public class ManagerServiceImpl implements IManagerService {
 		return mngDao.find(hql, new String[]{mname, mpsw});
 	}
 
+	public List<Manager> findAll() {
+		// TODO Auto-generated method stub
+		return mngDao.find("from Manager", null);
+	}
+
+	public void delete(String[] mid) {
+		// TODO Auto-generated method stub
+		mngDao.delete(mid, "mid");
+	}
+
 	
 }
