@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,10 +8,9 @@
 </head>
 <body>
 	<form action="doRegister" method="post">
-		uname:<input type="text" name="mname"/><br>
-		upsw:<input type="password" name="mpsw"/><br>
-		upsw2:<input type="password" name="mpsw2"/><br>
-		<input type="submit"/>
+		uname:<input type="text" name="mname" /><br> upsw:<input
+			type="password" name="mpsw" /><br> upsw2:<input type="password"
+			name="mpsw2" /><br> <input type="submit" />
 	</form>
 </body>
 </html>
