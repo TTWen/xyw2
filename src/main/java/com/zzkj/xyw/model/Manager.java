@@ -18,7 +18,7 @@ public class Manager {
 	@Column(name = "mname", nullable = false)
 	private String mname;
 
-	@Column(name = "mpsw", nullable = false)
+	@Column(name = "mpsw", columnDefinition ="null default '888888'")
 	private String mpsw;
 
 	@Column(name = "mtel", nullable = true)

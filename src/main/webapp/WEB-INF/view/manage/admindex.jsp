@@ -9,10 +9,10 @@
 </head>
 <body>
 	<c:if test="${crtmid == 1}">
-		<a href="/ebook/manage/register">添加管理员</a>
-		<a href="/ebook/manage/manager">管理员一览</a>
+		<a href="/xyw2/manage/register">添加管理员</a>
+		<a href="/xyw2/manage/manager">管理员一览</a>
 	</c:if>
 
-	<a href="/ebook/manage/sort">分类管理</a>
+	<a href="/xyw2/manage/notice/">公告管理</a>
 </body>
 </html>

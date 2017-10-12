@@ -8,7 +8,8 @@
 </head>
 <body>
 	<form action="/ebook/manage/addSort" method="post">
-		sname:<input type="text" name="sname" /><br> <input type="submit" />
+		sname:<input type="text" name="sname" /><br> <input
+			type="submit" />
 	</form>
 </body>
 </html>

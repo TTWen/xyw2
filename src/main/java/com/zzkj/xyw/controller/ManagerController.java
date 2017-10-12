@@ -37,7 +37,7 @@ public class ManagerController {
 	public String logout(HttpSession session) {
 		
 		session.removeAttribute("crtmid");
-		return "redirect:/index";
+		return "redirect:/manage/login";
 	}
 	
 	// 登录
@@ -48,7 +48,9 @@ public class ManagerController {
 		List<Manager> li =  mngService.login(mname, mpsw);
 		if( !li.isEmpty() ) {
 			session.setAttribute("crtmid", li.get(0).getMid());
+			session.setAttribute("crtmng", li.get(0));
 			return "redirect:/manage/admindex";
+			
 		} else {
 			
 			model.addAttribute("msg", "登录失败！");
@@ -61,21 +63,37 @@ public class ManagerController {
 	@RequestMapping(value = "/manage/doRegister")
 	public String doRegister(Manager mng, Model model) {
 		
-		mngService.regist(mng);
-		model.addAttribute("msg", "注册成功！");
-		List<Manager> mngList = mngService.findAll();
-		model.addAttribute("mngList", mngList);
-		return "/manage/manager";
+		try {
+			mngService.regist(mng);
+			model.addAttribute("msg", "注册成功！");
+			List<Manager> mngList = mngService.findAll();
+			model.addAttribute("mngList", mngList);
+			return "/manage/manager";
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("msg", "注册失败！");
+			return "redirect:/manage/register";
+		}
+		
 	}
 	
 	// 删除
 	@RequestMapping(value = "/manage/deleteMng")
 	public String deleteMng(String [] mid, Model model) {
 		
-		mngService.delete(mid);
+		try {
+			mngService.delete(mid);
+			model.addAttribute("msg", "删除成功！");
+			
+		} catch (Exception e) {
+			model.addAttribute("msg", "删除失败！");
+			
+		}
 		List<Manager> mngList = mngService.findAll();
 		model.addAttribute("mngList", mngList);
 		return "/manage/manager";
+		
+		
 	}
 	
 	// 管理员一览

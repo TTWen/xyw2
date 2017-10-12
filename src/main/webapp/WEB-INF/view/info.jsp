@@ -8,12 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<form action="/xyw2/user/modify" method="post">
 
-	<form action="/ebook/user/modify" method="post">
-		uname:<input type="text" name="uname" value="${user.uname}" /><br>
-		utel:<input type="text" name="utel" value="${user.utel}" /><br>
-		uem:<input type="text" name="uem" value="${user.uem}" /><br> uad:<input
-			type="text" name="uad" value="${user.uad}" /><br> <input
+		utel:<input type="text" name="utel" value="${crtuser.utel}" /><br>
+		uemail:<input type="text" name="uemail" readonly="readonly"
+			value="${crtuser.uemail}" /><br> ubirth:<input type="text"
+			name="ubirth" value="${crtuser.ubirth}" /><br> usignature:<input
+			type="text" name="usignature" value="${crtuser.usignature}" /> <input
 			type="submit" />
 	</form>
 </body>

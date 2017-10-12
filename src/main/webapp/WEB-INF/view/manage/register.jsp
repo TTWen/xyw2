@@ -8,9 +8,10 @@
 </head>
 <body>
 	<form action="doRegister" method="post">
-		uname:<input type="text" name="mname" /><br> upsw:<input
-			type="password" name="mpsw" /><br> upsw2:<input type="password"
-			name="mpsw2" /><br> <input type="submit" />
+		mname:<input type="text" name="mname" /><br> mpsw:<input
+			type="password" name="mpsw" /><br> mpsw2:<input type="password"
+			name="mpsw2" /><br> <input type="submit" /> mtel:<input
+			type="text" name="mtel" /> memail:<input type="text" name="memail" />
 	</form>
 </body>
 </html>

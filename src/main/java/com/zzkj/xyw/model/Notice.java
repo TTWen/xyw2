@@ -27,7 +27,7 @@ public class Notice {
 	@Column(name = "ncontent", nullable = false)
 	private String ncontent;
 	
-	@Column(name = "ntime", nullable = false)
+	@Column(name = "ntime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
 	private String ntime;
 
 	public int getNid() {

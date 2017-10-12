@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/ebook/manage/notice/add" method="post">
+	<form action="/xyw2/manage/notice/add" method="post">
 		ntitle:<input type="text" name="ntitle" /><br> ncontent:<input
-			type="text" name="ncontent" /><br> <input type="submit" />
+			type="text" name="ncontent" /><br> <input type="hidden"
+			name="nmid" value="${crtmid }"> <input type="submit" />
 	</form>
 </body>
 </html>

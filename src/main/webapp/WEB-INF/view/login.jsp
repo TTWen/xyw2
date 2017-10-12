@@ -12,6 +12,6 @@
 		uname:<input type="text" name="uname" /> upsw:<input type="password"
 			name="upsw" /> <input type="submit" />
 	</form>
-	${msg }
+
 </body>
 </html>

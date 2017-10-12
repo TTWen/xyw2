@@ -89,10 +89,7 @@ public class UserController {
 	// 用户个人信息
 	@RequestMapping(value = "/user/info")
 	public String modifyInfo(Model model, HttpSession session) {
-		
-		int uid = Integer.valueOf((String) session.getAttribute("crtuid"));
-		User user = userService.findById(uid);
-		model.addAttribute("user", user);
+
 		return "info";
 	}
 	
@@ -100,15 +97,26 @@ public class UserController {
 	@RequestMapping(value = "/user/modify")
 	public String modifyInfo(User user, Model model, HttpSession session) throws Exception {
 		
-		int uid = Integer.valueOf((String) session.getAttribute("crtuid"));
-		User u2 = userService.findById(uid);
-		user.setUpsw(u2.getUpsw());
-		user.setUid(uid);
-		user.setUurl(u2.getUurl());
+		User u2 = (User) session.getAttribute("crtuser");
 		
-		userService.update(user);
-		model.addAttribute("msg", "修改个人信息成功！");
-		return "/index";
+		user.setUid(u2.getUid());
+		user.setUname(u2.getUname());
+		user.setUpsw(u2.getUpsw());
+		user.setUregtime(u2.getUregtime());
+		user.setUsex(u2.getUsex());
+		user.setUisreal(u2.getUisreal());
+		user.setUicon(u2.getUicon());
+		
+		try {
+			userService.update(user);
+			session.setAttribute("crtuser", user);
+			model.addAttribute("msg", "修改个人信息成功！");
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("msg", "修改个人信息失败！");
+		}
+		
+		return "/info";
 	}
 	
 	// 修改头像
@@ -116,12 +124,19 @@ public class UserController {
 	public String modifyIcon(MultipartFile file, Model model, HttpSession session) throws Exception {
 		
 		int uid = Integer.parseInt(session.getAttribute("crtuid").toString());
-		User user = userService.findById(uid);
-		String path = UploadFile.doUpload("E:/ebook/icon/", file, uid);
-		user.setUurl(path);
+		User user = (User) session.getAttribute("crtuid");
+		String uicon = UploadFile.doUpload("F:/xyw/usericon/", file, uid);
+		user.setUicon(uicon.substring(6));
 		
-		userService.update(user);
-		model.addAttribute("msg", "修改头像成功！");
+		try {
+			userService.update(user);
+			session.setAttribute("crtuser", user);
+			model.addAttribute("msg", "修改头像成功！");
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("msg", "修改头像失败！");
+		}
+
 		return "/index";
 	}
 	

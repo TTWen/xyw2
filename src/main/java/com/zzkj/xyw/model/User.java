@@ -21,14 +21,14 @@ public class User {
 	@Column(name = "upsw", nullable = false)
 	private String upsw;
 
+	@Column(name = "uicon", columnDefinition ="null default '/usericon/default.png'")
+	private String uicon;
+	
 	@Column(name = "utel", nullable = true)
 	private String utel;
 
 	@Column(name = "uemail", nullable = false)
 	private String uemail;
-
-	@Column(name = "uicon", nullable = true)
-	private String uicon;
 
 	@Column(name = "ubirth", nullable = true)
 	private String ubirth;
@@ -45,6 +45,14 @@ public class User {
 	@Column(name = "uisreal", nullable = true)
 	private String uisreal = "0";
 	
+	public String getUicon() {
+		return uicon;
+	}
+
+	public void setUicon(String uicon) {
+		this.uicon = uicon;
+	}
+
 	public int getUid() {
 		return uid;
 	}
@@ -83,14 +91,6 @@ public class User {
 
 	public void setUemail(String uemail) {
 		this.uemail = uemail;
-	}
-
-	public String getUurl() {
-		return uicon;
-	}
-
-	public void setUurl(String uurl) {
-		this.uicon = uurl;
 	}
 
 	public String getUbirth() {

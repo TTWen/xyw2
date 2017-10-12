@@ -11,22 +11,22 @@
 
 	<c:choose>
 		<c:when test="${crtuid == null}">
-			<a href="/xyw/user/login">登录</a>
-			<a href="/xyw/user/register">注册</a>
+			<a href="/xyw2/user/login">登录</a>
+			<a href="/xyw2/user/register">注册</a>
 		</c:when>
 
 		<c:otherwise>
-			<a href="/xyw/user/info">我的账户</a>
-			<a href="/xyw/user/logout">注销</a>
-			<img src="/icon/${crtuid}.jpeg">
-			<form action="/xyw/user/modifyIcon" method="post"
+			<a href="/xyw2/user/info">我的账户</a>
+			<a href="/xyw2/user/logout">注销</a>
+			<img src="${crtuser.uicon}">
+			<form action="/xyw2/user/modifyIcon" method="post"
 				enctype="multipart/form-data">
 				<input type="file" name="file"> <input type="submit" />
 			</form>
 		</c:otherwise>
 	</c:choose>
 
-	<form action="/xyw/book/search/0" method="post">
+	<form action="/xyw2/book/search/0" method="post">
 		<input name="keyword" /> <input type="submit">
 	</form>
 </body>

@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/ebook/manage/addNotice">发布新公告</a>
-	<form action="/ebook/manage/deleteNotice" method="post">
+	<a href="/xyw2/manage/addNotice">发布新公告</a>
+	<form action="/xyw2/manage/deleteNotice" method="post">
 		<c:forEach items="${noticeList}" var="n">
 			<tr>
 				<input type="checkbox" name="nid" value="${n.nid}">
@@ -26,12 +26,12 @@
 	<br> 当前页：
 	<c:out value="${pageNow + 1}" />
 	<br>
-	<c:if test="${pageNow != 0}">
-		<a href="/ebook/manage/notice/${pageNow - 1}">上</a>
+	<c:if test="${pageNow > 0}">
+		<a href="/xyw2/manage/notice/${pageNow - 1}">上</a>
 	</c:if>
 
-	<c:if test="${pageNow + 1 != allPages}">
-		<a href="/ebook/manage/notice/${pageNow + 1}">下</a>
+	<c:if test="${pageNow + 1 < allPages}">
+		<a href="/xyw2/manage/notice/${pageNow + 1}">下</a>
 	</c:if>
 </body>
 </html>
