@@ -70,9 +70,4 @@ public class Notice {
 		this.ntime = ntime;
 	}
 
-	@Override
-	public String toString() {
-		return "Notice [nid=" + nid + ", nmid=" + nmid + ", ntitle=" + ntitle + ", ncontent=" + ncontent + ", ntime="
-				+ ntime + "]";
-	}
 }

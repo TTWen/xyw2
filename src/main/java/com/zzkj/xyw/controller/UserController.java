@@ -42,6 +42,13 @@ public class UserController {
 		return "register";
 	}
 	
+	// error
+	@RequestMapping(value = "/error")
+	public String error() {
+		
+		return "error";
+	}
+	
 	// 返回注销 view
 	@RequestMapping(value = "/user/logout")
 	public String logout(HttpSession session) {

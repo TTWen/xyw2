@@ -35,6 +35,10 @@ public class Reserve {
 	@Column(name = "restatus", nullable = false)
 	private String restatus; //预约状态
 
+	@GeneratedValue
+	@Column(name = "retime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+	private String retime; //预约生成时间
+	
 	public int getReid() {
 		return reid;
 	}
@@ -81,6 +85,14 @@ public class Reserve {
 
 	public void setRestatus(String restatus) {
 		this.restatus = restatus;
+	}
+
+	public String getRetime() {
+		return retime;
+	}
+
+	public void setRetime(String retime) {
+		this.retime = retime;
 	}
 	
 	

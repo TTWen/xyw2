@@ -37,6 +37,7 @@ public class ManagerController {
 	public String logout(HttpSession session) {
 		
 		session.removeAttribute("crtmid");
+		session.removeAttribute("crtmng");
 		return "redirect:/manage/login";
 	}
 	

@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:if test="${crtmid != 1}">
+		<jsp:forward page="/error"></jsp:forward>
+	</c:if>
 	<form action="deleteMng" method="post">
 		<c:forEach items="${mngList}" var="m">
 			<input type="checkbox" name="mid" value="${m.mid}">

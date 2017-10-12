@@ -8,11 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:if test="${crtmid == null }">
+		<jsp:forward page="/error"></jsp:forward>
+	</c:if>
 	<c:if test="${crtmid == 1}">
 		<a href="/xyw2/manage/register">添加管理员</a>
 		<a href="/xyw2/manage/manager">管理员一览</a>
 	</c:if>
-
+	<a href="/xyw2/manage/logout">注销</a>
 	<a href="/xyw2/manage/notice/">公告管理</a>
 </body>
 </html>

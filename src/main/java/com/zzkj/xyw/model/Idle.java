@@ -33,7 +33,7 @@ public class Idle {
 	private boolean itype;//存放闲置物品的类型，forfree还是forsale
 	
 	@GeneratedValue
-	@Column(name = "itime", nullable = false)
+	@Column(name = "itime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
 	private String itime;//存放闲置物品的发布时间
 
 	public int getIid() {

@@ -32,7 +32,7 @@ public class UserDetail {
 	private String udexp; //  经验
 	
 	@GeneratedValue
-	@Column(name = "udlastlog", nullable = false)
+	@Column(name = "udlastlog", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
 	private String udlastlog; // 上次登录时间
 
 	public String getUdid() {

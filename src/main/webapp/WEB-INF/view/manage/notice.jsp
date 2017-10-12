@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<c:if test="${crtmid == null }">
+		<jsp:forward page="/error"></jsp:forward>
+	</c:if>
 	<a href="/xyw2/manage/addNotice">发布新公告</a>
 	<form action="/xyw2/manage/deleteNotice" method="post">
 		<c:forEach items="${noticeList}" var="n">

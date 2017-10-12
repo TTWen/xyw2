@@ -18,7 +18,7 @@ public class TravelTip {
 	private int ttid;//帖子id
 	
 	@GeneratedValue
-	@Column(name = "ttime", nullable = false)
+	@Column(name = "ttime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
 	private String ttime;//发帖时间
 	
 	@GeneratedValue
@@ -35,20 +35,20 @@ public class TravelTip {
 
 	
 	@GeneratedValue
-	@Column(name = "ttviewcnt", nullable = false)
-	private int ttviewcnt;//浏览量
+	@Column(name = "ttview", nullable = false)
+	private int ttview;//浏览量
 	
 	@GeneratedValue
-	@Column(name = "ttlikecnt", nullable = false)
-	private int ttlikecnt;//点赞量
+	@Column(name = "ttlike", nullable = false)
+	private int ttlike;//点赞量
 	
 	@GeneratedValue
-	@Column(name = "tttsmtcnt", nullable = false)
-	private int tttsmtcnt;//转发量
+	@Column(name = "tttsmt", columnDefinition ="default 0")
+	private int tttsmt;//转发量
 	
 	@GeneratedValue
-	@Column(name = "ttcmtcnt", nullable = false)
-	private int ttcmtcnt;//评论量
+	@Column(name = "ttcmt", columnDefinition ="default 0")
+	private int ttcmt;//评论量
 
 	public int getTtid() {
 		return ttid;
@@ -90,37 +90,39 @@ public class TravelTip {
 		this.ttcontent = ttcontent;
 	}
 
-	public int getTtviewcnt() {
-		return ttviewcnt;
+	public int getTtview() {
+		return ttview;
 	}
 
-	public void setTtviewcnt(int ttviewcnt) {
-		this.ttviewcnt = ttviewcnt;
+	public void setTtview(int ttview) {
+		this.ttview = ttview;
 	}
 
-	public int getTtlikecnt() {
-		return ttlikecnt;
+	public int getTtlike() {
+		return ttlike;
 	}
 
-	public void setTtlikecnt(int ttlikecnt) {
-		this.ttlikecnt = ttlikecnt;
+	public void setTtlike(int ttlike) {
+		this.ttlike = ttlike;
 	}
 
-	public int getTttsmtcnt() {
-		return tttsmtcnt;
+	public int getTttsmt() {
+		return tttsmt;
 	}
 
-	public void setTttsmtcnt(int tttsmtcnt) {
-		this.tttsmtcnt = tttsmtcnt;
+	public void setTttsmt(int tttsmt) {
+		this.tttsmt = tttsmt;
 	}
 
-	public int getTtcmtcnt() {
-		return ttcmtcnt;
+	public int getTtcmt() {
+		return ttcmt;
 	}
 
-	public void setTtcmtcnt(int ttcmtcnt) {
-		this.ttcmtcnt = ttcmtcnt;
+	public void setTtcmt(int ttcmt) {
+		this.ttcmt = ttcmt;
 	}
+
+	
 	
 	
 }

@@ -60,7 +60,7 @@ public class Real {
 	private String rlis;//是否认证为学生
 	
 	@GeneratedValue
-	@Column(name = "rltime", nullable = false)
+	@Column(name = "rltime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
 	private String rltime;//实名认证时间
 
 	

@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<form action="/xyw2/manage/doLogin" method="post">
 		mname:<input type="text" name="mname" /> mpsw:<input type="password"
 			name="mpsw" /> <input type="submit" />

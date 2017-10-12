@@ -8,14 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:if test="${crtuid == null }">
+		<jsp:forward page="/error"></jsp:forward>
+	</c:if>
 	<form action="/xyw2/user/modify" method="post">
 
 		utel:<input type="text" name="utel" value="${crtuser.utel}" /><br>
 		uemail:<input type="text" name="uemail" readonly="readonly"
-			value="${crtuser.uemail}" /><br> ubirth:<input type="text"
-			name="ubirth" value="${crtuser.ubirth}" /><br> usignature:<input
-			type="text" name="usignature" value="${crtuser.usignature}" /> <input
-			type="submit" />
+			value="${crtuser.uemail}" /><br>
+		ubirth:<input type="text" name="ubirth" value="${crtuser.ubirth}" /><br> 
+		usignature:<textarea rows="" cols=""name="usignature" value="${crtuser.usignature}"></textarea>
+		<input type="submit" />
 	</form>
 </body>
 </html>
