@@ -13,6 +13,11 @@ public interface ITraveltipService {
 		// R
 		public List<Traveltip> findByPage(int pageNow, int pageSize);
 		
+		public Traveltip findById(int ttid);
+		
+		// U
+		public void update(Traveltip tt);
+		
 		// D
 		public void delete(String[] tid);
 		

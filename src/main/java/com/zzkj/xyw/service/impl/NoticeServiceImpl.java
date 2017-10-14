@@ -2,7 +2,6 @@ package com.zzkj.xyw.service.impl;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

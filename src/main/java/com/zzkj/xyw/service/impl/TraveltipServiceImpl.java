@@ -38,4 +38,15 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		return traveltipDao.cnt("Traveltip");
 	}
 
+	public Traveltip findById(int ttid) {
+		// TODO Auto-generated method stub
+		return traveltipDao.findById(ttid);
+	}
+
+	public void update(Traveltip tt) {
+		// TODO Auto-generated method stub
+		traveltipDao.update(tt);
+		
+	}
+
 }
