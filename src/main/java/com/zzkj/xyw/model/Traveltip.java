@@ -10,7 +10,7 @@ import javax.persistence.Table;
 // 旅游攻略
 @Entity
 @Table(name = "traveltip")
-public class TravelTip {
+public class Traveltip {
 
 	@Id
 	@GeneratedValue
@@ -26,8 +26,8 @@ public class TravelTip {
 	private int ttuid;//发帖人id
 	
 	@GeneratedValue
-	@Column(name = "tttile", nullable = false)
-	private String tttile;//标题
+	@Column(name = "tttitle", nullable = false)
+	private String tttitle;//标题
 	
 	@GeneratedValue
 	@Column(name = "ttcontent", nullable = false)
@@ -35,11 +35,11 @@ public class TravelTip {
 
 	
 	@GeneratedValue
-	@Column(name = "ttview", nullable = false)
+	@Column(name = "ttview", columnDefinition ="default 0")
 	private int ttview;//浏览量
 	
 	@GeneratedValue
-	@Column(name = "ttlike", nullable = false)
+	@Column(name = "ttlike", columnDefinition ="default 0")
 	private int ttlike;//点赞量
 	
 	@GeneratedValue
@@ -74,12 +74,12 @@ public class TravelTip {
 		this.ttuid = ttuid;
 	}
 
-	public String getTttile() {
-		return tttile;
+	public String getTttitle() {
+		return tttitle;
 	}
 
-	public void setTttile(String tttile) {
-		this.tttile = tttile;
+	public void setTttitle(String tttitle) {
+		this.tttitle = tttitle;
 	}
 
 	public String getTtcontent() {

@@ -16,6 +16,7 @@
 		</c:when>
 
 		<c:otherwise>
+			<a href="/xyw2/addTraveltip">发表游记</a>
 			<a href="/xyw2/user/info">我的账户</a>
 			<a href="/xyw2/user/logout">注销</a>
 			<img src="${crtuser.uicon}">
