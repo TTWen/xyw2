@@ -1,14 +1,12 @@
 package com.zzkj.xyw.dao.impl;
 
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.util.List;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -143,6 +141,22 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
             }
         });
 	}
+	
+	// 按条件删除
+	public void delete(String criteria) {
+		// TODO Auto-generated method stub
+		
+		final String hql = "delete from "+ cls.getSimpleName() +
+				" where "+ criteria;
+		getHibernateTemplate().execute(new HibernateCallback<T>() {
+
+            public T doInHibernate(Session session) {
+                Query query = session.createQuery(hql);
+                query.executeUpdate();
+                return null;
+            }
+        });
+	}
 
 	public int cnt(String tblname, String criteria) {
 		// TODO Auto-generated method stub
@@ -168,5 +182,6 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 				Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
 				Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
 	}
+
 
 }

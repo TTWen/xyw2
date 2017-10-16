@@ -8,31 +8,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:forEach items="${ttopList }" var="ttop">
+	<c:forEach items="${ttopList }" var="li">
 		<tr>
-		<a href="/xyw2/traveltipDetail/${ttop.tt.ttid}"><c:out value="${ttop.tt.ttid }"></c:out></a>
-		
-		
+		<c:out value="${li.tt.ttid }"></c:out>
+
 		<c:choose>
-			<c:when test="${ttop.like == 0}">
+			<c:when test="${li.like == 0}">
 				<th>
-				<a href="/xyw2/user/likeTraveltip/${ttop.tt.ttid}">赞(${ttop.tt.ttlike })</a></th>
+				<a href="/xyw2/user/likeTraveltip/${li.tt.ttid}">赞(${li.tt.ttlike })</a></th>
 			</c:when>
 			
 			<c:otherwise>
-				<th><a href="/xyw2/user/unlikeTraveltip/${ttop.tt.ttid}">取消赞</a></th>
+				<th><a href="/xyw2/user/unlikeTraveltip/${li.tt.ttid}">取消赞</a></th>
 			</c:otherwise>
 		</c:choose>
 		
-		<c:choose>
-			<c:when test="${ttop.clt == 0}">
-				<th><a href="/xyw2/user/cltTraveltip/${ttop.tt.ttid}">收藏</a></th>
-			</c:when>
-			
-			<c:otherwise>
-				<th><a href="/xyw2/user/uncltTraveltip/${ttop.tt.ttid}">取消收藏</a></th>
-			</c:otherwise>
-		</c:choose>
+			<th><a href="/xyw2/user/uncltTraveltip/${li.tt.ttid}">取消收藏</a></th>
+
 		</tr>
 	</c:forEach><br><br>
 
@@ -43,11 +35,11 @@
 	<c:out value="${pageNow + 1}" />
 	<br>
 	<c:if test="${pageNow > 0}">
-		<a href="/xyw2/user/traveltip/${pageNow - 1}">上</a>
+		<a href="/xyw2/user/ttclt/${pageNow - 1}">上</a>
 	</c:if>
 
 	<c:if test="${pageNow + 1 < allPages}">
-		<a href="/xyw2/user/traveltip/${pageNow + 1}">下</a>
+		<a href="/xyw2/user/ttclt/${pageNow + 1}">下</a>
 	</c:if>
 </body>
 </html>

@@ -12,7 +12,7 @@
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
 	<form action="/xyw2/traveltip/add" method="post">
-		tttile:<input type="text" name="tttile" /><br> 
+		tttitle:<input type="text" name="tttitle" /><br> 
 		ttcontent:<textarea rows="" cols="" name="ttcontent"></textarea>
 		<input type="hidden" name="ttuid" value="${crtuid }">
 		<input type="submit" />

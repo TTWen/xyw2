@@ -12,8 +12,12 @@ public interface IBaseDAO<T, PK extends Serializable> {
 
 	// 删除
 	public void delete(T t);
+	
 	// 批量
 	public void delete(String [] ids, String idName);
+	
+	// 按条件删除
+	public void delete(String criteria);
 
 	// 更新
 	public void update(T t);

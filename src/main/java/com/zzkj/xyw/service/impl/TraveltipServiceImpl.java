@@ -2,6 +2,7 @@ package com.zzkj.xyw.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,12 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		// TODO Auto-generated method stub
 		traveltipDao.update(tt);
 		
+	}
+
+	public List<Traveltip> findAll(List<Integer> ttids) {
+		// TODO Auto-generated method stub
+		
+		return traveltipDao.findAll(Restrictions.in("ttid", ttids));
 	}
 
 }

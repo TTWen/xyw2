@@ -15,6 +15,7 @@ public interface ITraveltipService {
 		
 		public Traveltip findById(int ttid);
 		
+		public List<Traveltip> findAll(List<Integer> ttids);
 		// U
 		public void update(Traveltip tt);
 		
