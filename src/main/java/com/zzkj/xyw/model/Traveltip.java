@@ -49,6 +49,10 @@ public class Traveltip {
 	@GeneratedValue
 	@Column(name = "ttcmt", columnDefinition ="default 0")
 	private int ttcmt;//评论量
+	
+	@GeneratedValue
+	@Column(name = "ttpic", nullable = false)
+	private String ttpic="/traveltippic/default.jpg"; // 封面图
 
 	public int getTtid() {
 		return ttid;
@@ -120,6 +124,22 @@ public class Traveltip {
 
 	public void setTtcmt(int ttcmt) {
 		this.ttcmt = ttcmt;
+	}
+
+	public String getTtpic() {
+		return ttpic;
+	}
+
+	public void setTtpic(String ttpic) {
+		this.ttpic = ttpic;
+	}
+
+	@Override
+	public String toString() {
+		return "Traveltip [ttid=" + ttid + ", ttime=" + ttime + ", ttuid="
+				+ ttuid + ", tttitle=" + tttitle + ", ttcontent=" + ttcontent
+				+ ", ttview=" + ttview + ", ttlike=" + ttlike + ", tttsmt="
+				+ tttsmt + ", ttcmt=" + ttcmt + ", ttpic=" + ttpic + "]";
 	}
 
 	

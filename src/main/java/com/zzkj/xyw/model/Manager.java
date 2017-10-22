@@ -19,7 +19,7 @@ public class Manager {
 	private String mname;
 
 	@Column(name = "mpsw", nullable = false)
-	private String mpsw;
+	private String mpsw="888888";
 
 	@Column(name = "mtel", nullable = true)
 	private String mtel;

@@ -73,7 +73,7 @@ public class ManagerController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("msg", "注册失败！");
-			return "redirect:/manage/register";
+			return "/manage/register";
 		}
 		
 	}

@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 
 	public int userCnt() {
 		
-		String hql = "select count(1) from User as u";
+		String hql = "User as u";
 		return userDao.cnt(hql);
 	}
 

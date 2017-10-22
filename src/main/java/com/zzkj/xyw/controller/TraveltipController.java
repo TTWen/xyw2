@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.zzkj.xyw.model.Remark;
 import com.zzkj.xyw.model.Topic;
@@ -18,11 +19,14 @@ import com.zzkj.xyw.model.TraveltipDetail;
 import com.zzkj.xyw.model.TraveltipOp;
 import com.zzkj.xyw.model.TtClt;
 import com.zzkj.xyw.model.TtLike;
+import com.zzkj.xyw.model.User;
 import com.zzkj.xyw.service.IRemarkService;
 import com.zzkj.xyw.service.ITopicService;
 import com.zzkj.xyw.service.ITraveltipService;
 import com.zzkj.xyw.service.ITtCltService;
 import com.zzkj.xyw.service.ITtLikeService;
+import com.zzkj.xyw.util.ControllerUtil;
+import com.zzkj.xyw.util.UploadFile;
 
 @Controller
 public class TraveltipController {
@@ -38,168 +42,136 @@ public class TraveltipController {
 	@Autowired
 	private IRemarkService remarkService;
 	
-	public void addParam(Model model, int pageSize, int pageNow,
-			List list, String listName, int cnt) {
-		int allPages = 0;
-		if(cnt != 0) {
-			allPages = (cnt -1)/pageSize + 1;
-		} else {
-			pageNow = -1;
-		}
-		
-		model.addAttribute(listName, list);
-		model.addAttribute("pageNow", pageNow);
-		model.addAttribute("allPages", allPages);
-	}
-	
-	// 分页添加model中的属性
-	public void addParam(Model model, int pageSize, int pageNow,
-			List<Traveltip> traveltipList){
-		
-		int traveltipCnt = 0;
-		int allPages = 0;
-		// 攻略数
-		try {
-			traveltipCnt = traveltipService.ttCnt();
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			
-		}
-		// 攻略数为0设置当前页为-1
-		if(traveltipCnt != 0) {
-			allPages = (traveltipCnt -1)/pageSize + 1;
-		} else {
-			pageNow = -1;
-		}
-		
-		model.addAttribute("traveltipList", traveltipList);
-		model.addAttribute("pageNow", pageNow);
-		model.addAttribute("allPages", allPages);
-	}
-	
 	// 管理界面攻略一览
 	@RequestMapping("/manage/traveltip")
 	public String traveltipList(Model model){
 		
+		int pageNow = 0;
 		int pageSize = 2;
+		int cnt = 0;
 		List<Traveltip> traveltipList = null;
-		try {
-			traveltipList = traveltipService.findByPage(0, pageSize);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		
-		addParam(model, pageSize, 0, traveltipList);
+		traveltipList = traveltipService.findByPage(pageNow, pageSize);
+		cnt = traveltipService.ttCnt();
+		
+		ControllerUtil.addParam(model, pageSize, pageNow, 
+				traveltipList, "traveltipList", cnt);
 		return "/manage/traveltip";
 	}
 	
 	@RequestMapping(value = "/manage/traveltip/{pageNow}")
 	public String traveltipList(@PathVariable int pageNow, Model model) {
+		
 		int pageSize = 2;
+		int cnt = 0;
 		List<Traveltip> traveltipList = null;
-		try {
-			traveltipList = traveltipService.findByPage(pageNow, pageSize);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		addParam(model, pageSize, pageNow, traveltipList);
+		
+		traveltipList = traveltipService.findByPage(pageNow, pageSize);
+		cnt = traveltipService.ttCnt();
+		
+		ControllerUtil.addParam(model, pageSize, pageNow, 
+				traveltipList, "traveltipList", cnt);
 		return "/manage/traveltip";
 	}
 	
-	// 返回添加攻略view
-	@RequestMapping(value = "/addTraveltip")
-	public String addTraveltip() {
-
-		return "/addTraveltip";
-	}
-	
-	// 用户添加攻略
-	@RequestMapping(value = "/traveltip/add")
-	public String addTraveltip(Traveltip traveltip, Model model, HttpSession session) {
-		
-		traveltipService.create(traveltip);
-		try {
-			traveltipService.create(traveltip);
-			model.addAttribute("msg", "发布攻略成功！");
-		} catch (Exception e) {
-			// TODO: handle exception
-			model.addAttribute("msg", "发布攻略失败！");
-		}
-		return "/success";
-	}
-	
-	// 删除攻略
+	// 管理员删除攻略
 	@RequestMapping(value = "/manage/deleteTraveltip")
 	public String deleteTraveltip(String[] ttid, Model model) {
 
-//			traveltipService.delete(ttid);
-		try {
-			traveltipService.delete(ttid);
-			model.addAttribute("msg", "删除攻略成功！");
-		} catch (Exception e) {
-			// TODO: handle exception
-			model.addAttribute("msg", "删除攻略失败！");
-		}
+		traveltipService.delete(ttid);
 		return traveltipList(model);
 	}
 	
-	///////////////////////
-	//用户
-	///////////////////////
+	/*
+	 * 用户有关攻略操作
+	 */
+	 
+	// 用户添加攻略
+	@RequestMapping(value = "/traveltip/add")
+	public String addTraveltip(Traveltip traveltip, MultipartFile file, 
+			Model model, HttpSession session) throws Exception {
+	
+		traveltipService.create(traveltip);
+		
+		// 攻略封面图上传
+		if(file != null) {
+			String ttpic = UploadFile.doUpload("F:/xyw/traveltippic/", file, traveltip.getTtid());
+			traveltip.setTtpic(ttpic.substring(6));
+			traveltipService.update(traveltip);
+		}
+		return "/success";
+	}
+
+	// 用户删除攻略
+	@RequestMapping(value = "/traveltip/delete/{ttid}")
+	public String deleteTraveltip(@PathVariable int ttid, 
+			Model model, HttpSession session) throws Exception {
+	
+		traveltipService.delete(new String[]{String.valueOf(ttid)});
+		
+		return "/success";
+	}
 	
 	// 攻略一览
 	@RequestMapping("/user/traveltip")
 	public String traveltipList2(Model model, HttpSession session){
+		
 		int pageSize = 2;
 		int pageNow = 0;
+		int ttCnt = 0;
 		List<Traveltip> traveltipList = null;
-		try {
-			traveltipList = traveltipService.findByPage(0, pageSize);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		List<TraveltipOp> ttopList = null;
+		int crtuid = (Integer) session.getAttribute("crtuid");
+		
+		traveltipList = traveltipService.findByPage(pageNow, pageSize);
+		
+		// 当前页攻略id组成的list
 		List<Integer> ttids = new ArrayList<Integer>();
 		for (Traveltip tt : traveltipList) {
 			ttids.add(tt.getTtid());
 		}
-		int crtuid = (Integer) session.getAttribute("crtuid");
-		List<TraveltipOp> ttopList = ttLikeService.findAll(ttids, crtuid);
+		// 用户对当前页攻略的操作记录list
+		ttopList = ttLikeService.findAll(ttids, crtuid);
+		// 按当前页顺序设置ttop中的traveltip属性
 		int i = 0;
 		for (Traveltip tt : traveltipList) {
 			ttopList.get(i).setTt(tt);
 			i++;
 		}
-		int ttCnt = 0;
+		
 		ttCnt = traveltipService.ttCnt();
-		addParam(model, pageSize, pageNow, ttopList,"ttopList",ttCnt);
+		ControllerUtil.addParam(model, pageSize, pageNow, ttopList,"ttopList",ttCnt);
 		
 		return "/traveltip";
 	}
 	
 	@RequestMapping(value = "/user/traveltip/{pageNow}")
 	public String traveltipList2(@PathVariable int pageNow, Model model,HttpSession session) {
+		
 		int pageSize = 2;
+		int ttCnt = 0;
 		List<Traveltip> traveltipList = null;
-		try {
-			traveltipList = traveltipService.findByPage(pageNow, pageSize);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		List<TraveltipOp> ttopList = null;
+		int crtuid = (Integer) session.getAttribute("crtuid");
+		
+		traveltipList = traveltipService.findByPage(pageNow, pageSize);
+		
+		// 当前页攻略id组成的list
 		List<Integer> ttids = new ArrayList<Integer>();
 		for (Traveltip tt : traveltipList) {
 			ttids.add(tt.getTtid());
 		}
-		int crtuid = (Integer) session.getAttribute("crtuid");
-		List<TraveltipOp> ttopList = ttLikeService.findAll(ttids, crtuid);
+		// 用户对当前页攻略的操作记录list
+		ttopList = ttLikeService.findAll(ttids, crtuid);
+		// 按当前页顺序设置ttop中的traveltip属性
 		int i = 0;
 		for (Traveltip tt : traveltipList) {
 			ttopList.get(i).setTt(tt);
 			i++;
 		}
-		int ttCnt = 0;
+		
 		ttCnt = traveltipService.ttCnt();
-		addParam(model, pageSize, pageNow, ttopList,"ttopList",ttCnt);
+		ControllerUtil.addParam(model, pageSize, pageNow, ttopList,"ttopList",ttCnt);
 		return "/traveltip";
 	}
 	
@@ -208,11 +180,14 @@ public class TraveltipController {
 	public String likeTraveltip(@PathVariable int ttid, Model model, HttpSession session) {
 
 		TtLike like = new TtLike();
-		like.setLttid(ttid);
 		int luid = (Integer) session.getAttribute("crtuid");
+		
+		like.setLttid(ttid);
 		like.setLuid(luid);
 		
 		ttLikeService.create(like);
+		
+		// 攻略点赞数增加
 		Traveltip tt = traveltipService.findById(ttid);
 		tt.setTtlike(tt.getTtlike()+1);
 		traveltipService.update(tt);
@@ -240,8 +215,9 @@ public class TraveltipController {
 	public String cltTraveltip(@PathVariable int ttid, Model model, HttpSession session) {
 
 		TtClt clt = new TtClt();
-		clt.setCttid(ttid);
 		int cuid = (Integer) session.getAttribute("crtuid");
+		
+		clt.setCttid(ttid);
 		clt.setCuid(cuid);
 		
 		ttCltService.create(clt);
@@ -262,47 +238,48 @@ public class TraveltipController {
 	// 个人收藏
 	@RequestMapping("/user/ttclt")
 	public String ttclt(Model model, HttpSession session){
+		
 		int pageSize = 2;
 		int pageNow = 0;
+		int cnt = 0;
 		List<TtClt> ttcltList = null;
 		int crtuid = (Integer) session.getAttribute("crtuid");
-		try {
-			ttcltList = ttCltService.findByPage(0, pageSize, crtuid);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		
+		ttcltList = ttCltService.findByPage(pageNow, pageSize, crtuid);
+		
+		// 当前页的攻略id组成的list
 		List<Integer> ttids = new ArrayList<Integer>();
 		for (TtClt tt : ttcltList) {
 			ttids.add(tt.getCttid());
 		}
 		List<TraveltipOp> ttopList = ttLikeService.findAll(ttids, crtuid);
 		
-		int cltCnt = 0;
-		cltCnt = ttCltService.cnt(crtuid);
-		addParam(model, pageSize, pageNow, ttopList, "ttopList", cltCnt);
+		
+		cnt = ttCltService.cnt(crtuid);
+		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList", cnt);
 		return "/ttclt";
 	}
 	
 	@RequestMapping("/user/ttclt/{pageNow}")
 	public String ttclt(@PathVariable int pageNow, Model model, HttpSession session){
+		
 		int pageSize = 2;
+		int cnt = 0;
 		List<TtClt> ttcltList = null;
 		int crtuid = (Integer) session.getAttribute("crtuid");
-		try {
-			ttcltList = ttCltService.findByPage(pageNow, pageSize, crtuid);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		
+		ttcltList = ttCltService.findByPage(pageNow, pageSize, crtuid);
+		
+		// 当前页的攻略id组成的list
 		List<Integer> ttids = new ArrayList<Integer>();
 		for (TtClt tt : ttcltList) {
 			ttids.add(tt.getCttid());
 		}
 		List<TraveltipOp> ttopList = ttLikeService.findAll(ttids, crtuid);
 		
-		int cltCnt = 0;
-		cltCnt = ttCltService.cnt(crtuid);
-		addParam(model, pageSize, pageNow, ttopList, "ttopList", cltCnt);
+		
+		cnt = ttCltService.cnt(crtuid);
+		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList", cnt);
 		return "/ttclt";
 	}
 	
@@ -312,28 +289,74 @@ public class TraveltipController {
 
 		int crtuid = (Integer) session.getAttribute("crtuid");
 		TraveltipOp ttop = new TraveltipOp();
-		ttop.setTt(traveltipService.findById(ttid));
+		
 		List<Integer> ttids = new ArrayList<Integer>();
 		ttids.add(ttid);
+		
 		List<TraveltipOp> ttopList = ttLikeService.findAll(ttids, crtuid);
-		model.addAttribute("ttop", ttopList.get(0));
+		ttop = ttopList.get(0);
+		model.addAttribute("ttop", ttop);
 		
 		// 显示 评论 及 回复
 		int pageNow = 0;
 		int pageSize = 2;
 		int cnt = 0;
 		cnt = topicService.topicCnt(ttid);
-		List<TraveltipDetail> ttDetailli = new ArrayList<TraveltipDetail>();
-		List<Topic> tpcli = topicService.findByPage(pageNow, pageSize, ttid);
-		for (Topic topic : tpcli) {
+		List<TraveltipDetail> ttDetailList = new ArrayList<TraveltipDetail>();
+		List<Topic> topicList = topicService.findByPage(pageNow, pageSize, ttid);
+		
+		for (Topic topic : topicList) {
 			TraveltipDetail ttd = new TraveltipDetail();
+			
 			ttd.setTpc(topic);
-			ttDetailli.add(ttd);
-			List<Remark> rmk = remarkService.findAll(topic.getTpid());
-			ttd.setRmk(rmk);
+			List<Remark> rmkList = remarkService.findAll(topic.getTpid());
+			ttd.setRmk(rmkList);
+			
+			ttDetailList.add(ttd);
 		}
-		addParam(model, pageSize, pageNow, ttDetailli, "ttDetailli", cnt);
+		ControllerUtil.addParam(model, pageSize, pageNow, ttDetailList, "ttDetailList", cnt);
 		return "/traveltipDetail";
+	}
+
+	@RequestMapping(value = "/traveltipDetail/{ttid}/{pageNow}")
+	public String traveltipDetail2(@PathVariable int ttid,
+			@PathVariable int pageNow,Model model, HttpSession session) {
+
+		int crtuid = (Integer) session.getAttribute("crtuid");
+		TraveltipOp ttop = new TraveltipOp();
+		
+		List<Integer> ttids = new ArrayList<Integer>();
+		ttids.add(ttid);
+		
+		List<TraveltipOp> ttopList = ttLikeService.findAll(ttids, crtuid);
+		ttop = ttopList.get(0);
+		model.addAttribute("ttop", ttop);
+		
+		// 显示 评论 及 回复
+		int pageSize = 2;
+		int cnt = 0;
+		cnt = topicService.topicCnt(ttid);
+		List<TraveltipDetail> ttDetailList = new ArrayList<TraveltipDetail>();
+		List<Topic> topicList = topicService.findByPage(pageNow, pageSize, ttid);
+		
+		for (Topic topic : topicList) {
+			TraveltipDetail ttd = new TraveltipDetail();
+			
+			ttd.setTpc(topic);
+			List<Remark> rmkList = remarkService.findAll(topic.getTpid());
+			ttd.setRmk(rmkList);
+			
+			ttDetailList.add(ttd);
+		}
+		ControllerUtil.addParam(model, pageSize, pageNow, ttDetailList, "ttDetailList", cnt);
+		return "/traveltipDetail";
+	}
+	
+	// 返回添加攻略view
+	@RequestMapping(value = "/addTraveltip")
+	public String addTraveltip() {
+	
+		return "/addTraveltip";
 	}
 	
 }

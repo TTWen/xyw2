@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.zzkj.xyw.model.User;
 import com.zzkj.xyw.service.IUserService;
+import com.zzkj.xyw.util.ControllerUtil;
 import com.zzkj.xyw.util.UploadFile;
 
 @Controller
@@ -31,7 +32,7 @@ public class UserController {
 	// 返回登录 view
 	@RequestMapping(value = "/user/login")
 	public String login() {
-		
+		 
 		return "login";
 	}
 	
@@ -54,6 +55,7 @@ public class UserController {
 	public String logout(HttpSession session) {
 		
 		session.removeAttribute("crtuid");
+		session.removeAttribute("crtuser");
 		return "redirect:/index";
 	}
 	
@@ -80,14 +82,13 @@ public class UserController {
 	public String doRegist(User user, Model model) {
 		
 		try {
-			
 			userService.regist(user);
 			model.addAttribute("msg", "注册成功！");
 			return "login";
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("msg", "注册失败！");
-			return "regist";
+			return "register";
 		}
 		
 		
@@ -104,15 +105,15 @@ public class UserController {
 	@RequestMapping(value = "/user/modify")
 	public String modifyInfo(User user, Model model, HttpSession session) throws Exception {
 		
-		User u2 = (User) session.getAttribute("crtuser");
+		User crtuser = (User) session.getAttribute("crtuser");
 		
-		user.setUid(u2.getUid());
-		user.setUname(u2.getUname());
-		user.setUpsw(u2.getUpsw());
-		user.setUregtime(u2.getUregtime());
-		user.setUsex(u2.getUsex());
-		user.setUisreal(u2.getUisreal());
-		user.setUicon(u2.getUicon());
+		user.setUid(crtuser.getUid());
+		user.setUname(crtuser.getUname());
+		user.setUpsw(crtuser.getUpsw());
+		user.setUregtime(crtuser.getUregtime());
+		user.setUsex(crtuser.getUsex());
+		user.setUisreal(crtuser.getUisreal());
+		user.setUicon(crtuser.getUicon());
 		
 		try {
 			userService.update(user);
@@ -130,8 +131,8 @@ public class UserController {
 	@RequestMapping(value = "/user/modifyIcon")
 	public String modifyIcon(MultipartFile file, Model model, HttpSession session) throws Exception {
 		
-		int uid = Integer.parseInt(session.getAttribute("crtuid").toString());
-		User user = (User) session.getAttribute("crtuid");
+		int uid = (Integer) session.getAttribute("crtuid");
+		User user = (User) session.getAttribute("crtuser");
 		String uicon = UploadFile.doUpload("F:/xyw/usericon/", file, uid);
 		user.setUicon(uicon.substring(6));
 		
@@ -151,23 +152,30 @@ public class UserController {
 	@RequestMapping(value = "/manage/user")
 	public String mgUser(Model model) {
 		
-		List<User> userList = userService.findByPage(0, 10);
-		int allPages = userService.userCnt();
-		model.addAttribute("userList", userList);
-		model.addAttribute("allPages", allPages);
+		int pageNow = 0;
+		int cnt = 0;
+		int pageSize = 3;
+		
+		List<User> userList = userService.findByPage(pageNow, pageSize);
+		
+		cnt = userService.userCnt();
+		ControllerUtil.addParam(model, pageSize, pageNow, userList, "userList", cnt);
+		
 		return "/manage/user";
 	}
 	
 	// 分页显示用户
 	@RequestMapping(value = "/manage/user/{pageNow}")
-	public String userList(@PathVariable("pageNow") int pageNow, Model model) {
+	public String userList(@PathVariable int pageNow, Model model) {
 		
-		int pageSize = 10;
+		int cnt = 0;
+		int pageSize = 3;
+		
 		List<User> userList = userService.findByPage(pageNow, pageSize);
-		int allPages = userService.userCnt();
-		model.addAttribute("userList", userList);
-		model.addAttribute("allPages", allPages);
-		model.addAttribute("pageNow", pageNow);
+		
+		cnt = userService.userCnt();
+		ControllerUtil.addParam(model, pageSize, pageNow, userList, "userList", cnt);
+		
 		return "/manage/user";
 	}
 }

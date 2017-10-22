@@ -11,8 +11,9 @@
 	<c:if test="${crtuid == null }">
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
-	<form action="/xyw2/traveltip/add" method="post">
+	<form action="/xyw2/traveltip/add" method="post" enctype="multipart/form-data">
 		tttitle:<input type="text" name="tttitle" /><br> 
+		<input type="file" name="file">
 		ttcontent:<textarea rows="" cols="" name="ttcontent"></textarea>
 		<input type="hidden" name="ttuid" value="${crtuid }">
 		<input type="submit" />

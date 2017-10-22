@@ -8,11 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<c:if test="${crtuid == null }">
+		<jsp:forward page="/error"></jsp:forward>
+	</c:if>
 	<c:forEach items="${ttopList }" var="ttop">
 		<tr>
 		<a href="/xyw2/traveltipDetail/${ttop.tt.ttid}"><c:out value="${ttop.tt.ttid }"></c:out></a>
 		
-		
+		<c:if test="${ttop.tt.ttuid == crtuid }">
+		<a href="/xyw2/deleteTraveltip/${ttop.tt.ttid }">删除</a>
+		</c:if>
 		<c:choose>
 			<c:when test="${ttop.like == 0}">
 				<th>
@@ -20,7 +26,7 @@
 			</c:when>
 			
 			<c:otherwise>
-				<th><a href="/xyw2/user/unlikeTraveltip/${ttop.tt.ttid}">取消赞</a></th>
+				<th><a href="/xyw2/user/unlikeTraveltip/${ttop.tt.ttid}">取消赞(${ttop.tt.ttlike })</a></th>
 			</c:otherwise>
 		</c:choose>
 		
@@ -33,6 +39,8 @@
 				<th><a href="/xyw2/user/uncltTraveltip/${ttop.tt.ttid}">取消收藏</a></th>
 			</c:otherwise>
 		</c:choose>
+		
+		
 		</tr>
 	</c:forEach><br><br>
 
