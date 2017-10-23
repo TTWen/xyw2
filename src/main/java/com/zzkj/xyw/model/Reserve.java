@@ -13,32 +13,32 @@ public class Reserve {
 	@Id
 	@GeneratedValue
 	@Column(name = "reid", nullable = false)
-	private int reid;  //预约id
-	
-	@GeneratedValue
-	@Column(name = "rebegin", nullable = false)
-	private String rebegin; //预约开始时间
-	
-	@GeneratedValue
-	@Column(name = "refinsh", nullable = false)
-	private String refinsh; //预约结束时间
-	
-	@GeneratedValue
-	@Column(name = "reuid", nullable = false)
-	private int reuid; //预约用户id
-	
-	@GeneratedValue
-	@Column(name = "reduid", nullable = false)
-	private int reduid; //被预约用户id
-	
-	@GeneratedValue
-	@Column(name = "restatus", nullable = false)
-	private String restatus; //预约状态
+	private int reid; // 预约id
 
 	@GeneratedValue
-	@Column(name = "retime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
-	private String retime; //预约生成时间
-	
+	@Column(name = "rebegin", nullable = false)
+	private String rebegin; // 预约开始时间
+
+	@GeneratedValue
+	@Column(name = "refinsh", nullable = false)
+	private String refinsh; // 预约结束时间
+
+	@GeneratedValue
+	@Column(name = "reuid", nullable = false)
+	private int reuid; // 预约用户id
+
+	@GeneratedValue
+	@Column(name = "reduid", nullable = false)
+	private int reduid; // 被预约用户id
+
+	@GeneratedValue
+	@Column(name = "restatus", nullable = false)
+	private String restatus; // 预约状态
+
+	@GeneratedValue
+	@Column(name = "retime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+	private String retime; // 预约生成时间
+
 	public int getReid() {
 		return reid;
 	}
@@ -94,6 +94,5 @@ public class Reserve {
 	public void setRetime(String retime) {
 		this.retime = retime;
 	}
-	
-	
+
 }

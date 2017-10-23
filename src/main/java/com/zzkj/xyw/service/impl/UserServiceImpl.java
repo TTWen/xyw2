@@ -14,36 +14,36 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private IUserDAO userDao;
-	
+
 	public void regist(User user) {
 
 		userDao.add(user);
 	}
 
 	public List<User> login(String uname, String upsw) {
-		
+
 		String hql = "from User u where u.uname=? and u.upsw=?";
-		return userDao.find(hql, new String[]{uname, upsw});
+		return userDao.find(hql, new String[] { uname, upsw });
 	}
-	
+
 	public List<User> findByPage(int pageNow, int pageSize) {
-		
+
 		return userDao.findByPage(pageNow, pageSize);
 	}
 
 	public int userCnt() {
-		
+
 		String hql = "User as u";
 		return userDao.cnt(hql);
 	}
 
 	public void update(User user) {
-		
+
 		userDao.update(user);
 	}
 
 	public User findById(int uid) {
-		
+
 		return userDao.findById(uid);
 	}
 

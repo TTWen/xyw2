@@ -15,17 +15,17 @@ public class TtClt {
 	@GeneratedValue
 	@Column(name = "cid", nullable = false)
 	private int cid;
-	
+
 	@GeneratedValue
 	@Column(name = "cuid", nullable = false)
 	private int cuid;
-	
+
 	@GeneratedValue
 	@Column(name = "cttid", nullable = false)
 	private int cttid;
-	
+
 	@GeneratedValue
-	@Column(name = "ctime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+	@Column(name = "ctime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String ctime;
 
 	public int getCid() {
@@ -59,9 +59,5 @@ public class TtClt {
 	public void setCtime(String ctime) {
 		this.ctime = ctime;
 	}
-	
-	
-	
-	
 
 }

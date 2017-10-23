@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 //公告
 @Entity
 @Table(name = "notice")
@@ -16,18 +15,18 @@ public class Notice {
 	@GeneratedValue
 	@Column(name = "nid", nullable = false)
 	private int nid;
-	
-	//发布公告的管理员
+
+	// 发布公告的管理员
 	@Column(name = "nmid", nullable = false)
 	private int nmid;
-	
+
 	@Column(name = "ntitle", nullable = false)
 	private String ntitle;
-	
+
 	@Column(name = "ncontent", nullable = false)
 	private String ncontent;
-	
-	@Column(name = "ntime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+
+	@Column(name = "ntime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String ntime;
 
 	public int getNid() {

@@ -2,6 +2,7 @@ package com.zzkj.xyw.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,23 @@ public class TraveltipServiceImpl implements ITraveltipService {
 
 	@Autowired
 	private ITraveltipDAO traveltipDao;
-	
-	
+
 	public void create(Traveltip tt) {
 		// TODO Auto-generated method stub
 
 		traveltipDao.add(tt);
 	}
 
+	// 综合排序
 	public List<Traveltip> findByPage(int pageNow, int pageSize) {
 		// TODO Auto-generated method stub
+		return traveltipDao.findByPage(pageNow, pageSize);
+	}
+	// 按条件
+	public List<Traveltip> findByPage(int pageNow, int pageSize, 
+			String orderBy,boolean isAsc,Criterion criterions) {
+		// TODO Auto-generated method stub
+		traveltipDao.findByPage(pageNow, pageSize, orderBy, isAsc, criterions);
 		return traveltipDao.findByPage(pageNow, pageSize);
 	}
 
@@ -47,12 +55,12 @@ public class TraveltipServiceImpl implements ITraveltipService {
 	public void update(Traveltip tt) {
 		// TODO Auto-generated method stub
 		traveltipDao.update(tt);
-		
+
 	}
 
 	public List<Traveltip> findAll(List<Integer> ttids) {
 		// TODO Auto-generated method stub
-		
+
 		return traveltipDao.findAll(Restrictions.in("ttid", ttids));
 	}
 

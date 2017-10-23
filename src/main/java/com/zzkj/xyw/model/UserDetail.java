@@ -14,25 +14,25 @@ public class UserDetail {
 	@GeneratedValue
 	@Column(name = "udid", nullable = false)
 	private String udid;
-	
+
 	@GeneratedValue
 	@Column(name = "udattcnt", nullable = false)
-	private String udattcnt; 
-	
+	private String udattcnt;
+
 	@GeneratedValue
 	@Column(name = "udfanscnt", nullable = false)
-	private String udfanscnt; 
-	
+	private String udfanscnt;
+
 	@GeneratedValue
 	@Column(name = "udcoincnt", nullable = false)
-	private String udcoincnt; 
-	
+	private String udcoincnt;
+
 	@GeneratedValue
 	@Column(name = "udexp", nullable = false)
-	private String udexp; //  经验
-	
+	private String udexp; // 经验
+
 	@GeneratedValue
-	@Column(name = "udlastlog", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+	@Column(name = "udlastlog", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String udlastlog; // 上次登录时间
 
 	public String getUdid() {
@@ -82,6 +82,5 @@ public class UserDetail {
 	public void setUdlastlog(String udlastlog) {
 		this.udlastlog = udlastlog;
 	}
-	
-	
+
 }

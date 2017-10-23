@@ -6,8 +6,7 @@ import com.zzkj.xyw.dao.ITraveltipDAO;
 import com.zzkj.xyw.model.Traveltip;
 
 @Repository("traveltipDAO")
-public class TraveltipDAO extends BaseDAOImpl<Traveltip , String> implements ITraveltipDAO {
-
-
+public class TraveltipDAO extends BaseDAOImpl<Traveltip, String> implements
+		ITraveltipDAO {
 
 }

@@ -11,7 +11,7 @@ import com.zzkj.xyw.model.Topic;
 import com.zzkj.xyw.service.ITopicService;
 
 @Service("topicService")
-public class TopicServiceImpl implements ITopicService{
+public class TopicServiceImpl implements ITopicService {
 
 	@Autowired
 	private ITopicDAO topicDao;
@@ -29,20 +29,19 @@ public class TopicServiceImpl implements ITopicService{
 	public void delete(String[] tpid) {
 		// TODO Auto-generated method stub
 		topicDao.delete(tpid, "tpid");
-		
+
 	}
 
 	public int topicCnt(int ttid) {
 		// TODO Auto-generated method stub
-		
+
 		return topicDao.cnt("Topic where tpttid=" + ttid);
 	}
 
 	public List<Topic> findByPage(int pageNow, int pageSize, int ttid) {
-		
+
 		return topicDao.findByPage(pageNow, pageSize, "tptime", true,
 				Restrictions.eq("tpttid", ttid));
 	}
-	
-	
+
 }

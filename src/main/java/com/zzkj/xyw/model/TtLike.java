@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 //攻略点赞
 @Entity
 @Table(name = "ttlike")
@@ -16,17 +15,17 @@ public class TtLike {
 	@GeneratedValue
 	@Column(name = "lid", nullable = false)
 	private int lid;
-	
+
 	@GeneratedValue
 	@Column(name = "luid", nullable = false)
 	private int luid;
-	
+
 	@GeneratedValue
 	@Column(name = "lttid", nullable = false)
 	private int lttid;
-	
+
 	@GeneratedValue
-	@Column(name = "ltime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+	@Column(name = "ltime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String ltime;
 
 	public int getLid() {
@@ -60,6 +59,5 @@ public class TtLike {
 	public void setLtime(String ltime) {
 		this.ltime = ltime;
 	}
-	
-	
+
 }

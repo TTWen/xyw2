@@ -12,10 +12,10 @@ public interface IBaseDAO<T, PK extends Serializable> {
 
 	// 删除
 	public void delete(T t);
-	
+
 	// 批量
-	public void delete(String [] ids, String idName);
-	
+	public void delete(String[] ids, String idName);
+
 	// 按条件删除
 	public void delete(String criteria);
 
@@ -41,13 +41,13 @@ public interface IBaseDAO<T, PK extends Serializable> {
 			boolean isAsc, String keyword);
 
 	public List<T> findAll(Criterion... criterions);
-	
+
 	// 关键字搜索
 	public List<T> findByKeyword(String keyword);
-	
+
 	// 总数
 	public int cnt(String tblname);
-	
+
 	// 根据具体的hql语句查找实体类
 	public List<T> find(String hql, String[] param);
 

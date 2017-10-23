@@ -16,8 +16,8 @@
 		</c:when>
 
 		<c:otherwise>
-			<a href="/xyw2/addTraveltip">发表游记</a>
-			<a href="/xyw2/user/info">我的账户</a>
+			<a href="/xyw2/addTraveltip">发表攻略</a>
+			<a href="/xyw2/user/info">个人信息</a>
 			<a href="/xyw2/user/logout">注销</a>
 			<img src="${crtuser.uicon}">
 			<form action="/xyw2/user/modifyIcon" method="post"
@@ -26,8 +26,8 @@
 			</form>
 		</c:otherwise>
 	</c:choose>
-
-	<form action="/xyw2/book/search/0" method="post">
+	<a href="/xyw2/user/traveltip">攻略库</a>
+	<form action="/xyw2/search" method="post">
 		<input name="keyword" /> <input type="submit">
 	</form>
 </body>

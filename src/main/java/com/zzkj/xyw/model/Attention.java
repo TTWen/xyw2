@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 // 关注好友
 @Entity
 @Table(name = "attention")
@@ -16,17 +15,17 @@ public class Attention {
 	@GeneratedValue
 	@Column(name = "aid", nullable = false)
 	private int aid;
-	
-	//用户id
+
+	// 用户id
 	@GeneratedValue
 	@Column(name = "auid", nullable = false)
 	private int auid;
-	
-	//被关注用户id
+
+	// 被关注用户id
 	@GeneratedValue
 	@Column(name = "aduid", nullable = false)
 	private int aduid;
-	
+
 	@GeneratedValue
 	@Column(name = "atime", nullable = false)
 	private String atime;
@@ -62,6 +61,5 @@ public class Attention {
 	public void setAtime(String atime) {
 		this.atime = atime;
 	}
-	
-	
+
 }

@@ -6,6 +6,7 @@ import com.zzkj.xyw.dao.INoticeDAO;
 import com.zzkj.xyw.model.Notice;
 
 @Repository("noticeDao")
-public class NoticeDAOImpl extends BaseDAOImpl<Notice, String> implements INoticeDAO{
+public class NoticeDAOImpl extends BaseDAOImpl<Notice, String> implements
+		INoticeDAO {
 
 }

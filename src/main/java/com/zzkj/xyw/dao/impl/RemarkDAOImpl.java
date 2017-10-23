@@ -6,6 +6,7 @@ import com.zzkj.xyw.dao.IRemarkDAO;
 import com.zzkj.xyw.model.Remark;
 
 @Repository("remarkDao")
-public class RemarkDAOImpl extends BaseDAOImpl<Remark, String> implements IRemarkDAO{
+public class RemarkDAOImpl extends BaseDAOImpl<Remark, String> implements
+		IRemarkDAO {
 
 }

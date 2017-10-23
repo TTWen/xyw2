@@ -11,7 +11,7 @@ import com.zzkj.xyw.model.Remark;
 import com.zzkj.xyw.service.IRemarkService;
 
 @Service("remarkService")
-public class RemarkServiceImpl implements IRemarkService{
+public class RemarkServiceImpl implements IRemarkService {
 
 	@Autowired
 	private IRemarkDAO remarkDao;
@@ -29,12 +29,12 @@ public class RemarkServiceImpl implements IRemarkService{
 	public void delete(String[] rid) {
 		// TODO Auto-generated method stub
 		remarkDao.delete(rid, "rid");
-		
+
 	}
 
 	public int remarkCnt() {
 		// TODO Auto-generated method stub
-		
+
 		return remarkDao.cnt("Remark");
 	}
 
@@ -42,6 +42,5 @@ public class RemarkServiceImpl implements IRemarkService{
 		// TODO Auto-generated method stub
 		return remarkDao.findAll(Restrictions.eq("rtpid", tpid));
 	}
-	
-	
+
 }

@@ -10,7 +10,7 @@ import com.zzkj.xyw.model.Notice;
 import com.zzkj.xyw.service.INoticeService;
 
 @Service("noticeService")
-public class NoticeServiceImpl implements INoticeService{
+public class NoticeServiceImpl implements INoticeService {
 
 	@Autowired
 	private INoticeDAO noticeDao;
@@ -28,14 +28,13 @@ public class NoticeServiceImpl implements INoticeService{
 	public void delete(String[] nid) {
 		// TODO Auto-generated method stub
 		noticeDao.delete(nid, "nid");
-		
+
 	}
 
 	public int noticeCnt() {
 		// TODO Auto-generated method stub
-		
+
 		return noticeDao.cnt("Notice");
 	}
-	
-	
+
 }

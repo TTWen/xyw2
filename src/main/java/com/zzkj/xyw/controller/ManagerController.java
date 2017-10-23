@@ -17,53 +17,53 @@ public class ManagerController {
 
 	@Autowired
 	private IManagerService mngService;
-	
+
 	// 返回登录 view
 	@RequestMapping(value = "/manage/login")
 	public String login() {
-		
+
 		return "/manage/login";
 	}
-	
+
 	// 返回注册 view
 	@RequestMapping(value = "/manage/register")
 	public String register() {
-		
+
 		return "/manage/register";
 	}
-	
+
 	// 返回注销 view
 	@RequestMapping(value = "/manage/logout")
 	public String logout(HttpSession session) {
-		
+
 		session.removeAttribute("crtmid");
 		session.removeAttribute("crtmng");
 		return "redirect:/manage/login";
 	}
-	
+
 	// 登录
 	@RequestMapping(value = "/manage/doLogin")
-	public String doLogin(String mname, String mpsw, Model model, 
+	public String doLogin(String mname, String mpsw, Model model,
 			HttpSession session) {
-		
-		List<Manager> li =  mngService.login(mname, mpsw);
-		if( !li.isEmpty() ) {
+
+		List<Manager> li = mngService.login(mname, mpsw);
+		if (!li.isEmpty()) {
 			session.setAttribute("crtmid", li.get(0).getMid());
 			session.setAttribute("crtmng", li.get(0));
 			return "redirect:/manage/admindex";
-			
+
 		} else {
-			
+
 			model.addAttribute("msg", "登录失败！");
 			return "/manage/login";
 		}
-		
+
 	}
-	 
+
 	// 注册
 	@RequestMapping(value = "/manage/doRegister")
 	public String doRegister(Manager mng, Model model) {
-		
+
 		try {
 			mngService.regist(mng);
 			model.addAttribute("msg", "注册成功！");
@@ -75,41 +75,40 @@ public class ManagerController {
 			model.addAttribute("msg", "注册失败！");
 			return "/manage/register";
 		}
-		
+
 	}
-	
+
 	// 删除
 	@RequestMapping(value = "/manage/deleteMng")
-	public String deleteMng(String [] mid, Model model) {
-		
+	public String deleteMng(String[] mid, Model model) {
+
 		try {
 			mngService.delete(mid);
 			model.addAttribute("msg", "删除成功！");
-			
+
 		} catch (Exception e) {
 			model.addAttribute("msg", "删除失败！");
-			
+
 		}
 		List<Manager> mngList = mngService.findAll();
 		model.addAttribute("mngList", mngList);
 		return "/manage/manager";
-		
-		
+
 	}
-	
+
 	// 管理员一览
 	@RequestMapping(value = "/manage/manager")
 	public String manager(Model model) {
-		
+
 		List<Manager> mngList = mngService.findAll();
 		model.addAttribute("mngList", mngList);
 		return "/manage/manager";
 	}
-	
+
 	// 返回后台index view
 	@RequestMapping(value = "/manage/admindex")
 	public String index() {
-		
+
 		return "/manage/admindex";
 	}
 }

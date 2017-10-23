@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 // 旅游攻略
 @Entity
 @Table(name = "traveltip")
@@ -15,44 +14,47 @@ public class Traveltip {
 	@Id
 	@GeneratedValue
 	@Column(name = "ttid", nullable = false)
-	private int ttid;//帖子id
-	
+	private int ttid;// 帖子id
+
 	@GeneratedValue
-	@Column(name = "ttime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
-	private String ttime;//发帖时间
-	
+	@Column(name = "ttime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+	private String ttime;// 发帖时间
+
 	@GeneratedValue
 	@Column(name = "ttuid", nullable = false)
-	private int ttuid;//发帖人id
-	
+	private int ttuid;// 发帖人id
+
 	@GeneratedValue
 	@Column(name = "tttitle", nullable = false)
-	private String tttitle;//标题
-	
+	private String tttitle;// 标题
+
 	@GeneratedValue
 	@Column(name = "ttcontent", nullable = false)
-	private String ttcontent;//正文内容
+	private String ttcontent;// 正文内容
 
-	
 	@GeneratedValue
-	@Column(name = "ttview", columnDefinition ="default 0")
-	private int ttview;//浏览量
-	
+	@Column(name = "ttview", columnDefinition = "default 0")
+	private int ttview;// 浏览量
+
 	@GeneratedValue
-	@Column(name = "ttlike", columnDefinition ="default 0")
-	private int ttlike;//点赞量
-	
+	@Column(name = "ttlike", columnDefinition = "default 0")
+	private int ttlike;// 点赞量
+
 	@GeneratedValue
-	@Column(name = "tttsmt", columnDefinition ="default 0")
-	private int tttsmt;//转发量
-	
-	@GeneratedValue
-	@Column(name = "ttcmt", columnDefinition ="default 0")
-	private int ttcmt;//评论量
-	
+	@Column(name = "ttcmt", columnDefinition = "default 0")
+	private int ttcmt;// 评论量
+
 	@GeneratedValue
 	@Column(name = "ttpic", nullable = false)
-	private String ttpic="/traveltippic/default.jpg"; // 封面图
+	private String ttpic = "/traveltippic/default.jpg"; // 封面图
+	
+	@GeneratedValue
+	@Column(name = "ttischeck", nullable = false)
+	private int ttischeck = 0;// 是否审核
+
+	@GeneratedValue
+	@Column(name = "ttcity", nullable = false)
+	private String ttcity;// 城市
 
 	public int getTtid() {
 		return ttid;
@@ -110,14 +112,6 @@ public class Traveltip {
 		this.ttlike = ttlike;
 	}
 
-	public int getTttsmt() {
-		return tttsmt;
-	}
-
-	public void setTttsmt(int tttsmt) {
-		this.tttsmt = tttsmt;
-	}
-
 	public int getTtcmt() {
 		return ttcmt;
 	}
@@ -134,15 +128,21 @@ public class Traveltip {
 		this.ttpic = ttpic;
 	}
 
-	@Override
-	public String toString() {
-		return "Traveltip [ttid=" + ttid + ", ttime=" + ttime + ", ttuid="
-				+ ttuid + ", tttitle=" + tttitle + ", ttcontent=" + ttcontent
-				+ ", ttview=" + ttview + ", ttlike=" + ttlike + ", tttsmt="
-				+ tttsmt + ", ttcmt=" + ttcmt + ", ttpic=" + ttpic + "]";
+	
+	public int getTtischeck() {
+		return ttischeck;
 	}
 
-	
-	
-	
+	public void setTtischeck(int ttischeck) {
+		this.ttischeck = ttischeck;
+	}
+
+	public String getTtcity() {
+		return ttcity;
+	}
+
+	public void setTtcity(String ttcity) {
+		this.ttcity = ttcity;
+	}
+
 }

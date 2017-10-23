@@ -13,57 +13,55 @@ public class Real {
 	@Id
 	@GeneratedValue
 	@Column(name = "rlid", nullable = false)
-	private int rlid;//表示主键
-	
+	private int rlid;// 表示主键
+
 	@GeneratedValue
 	@Column(name = "rluid", nullable = false)
-	private int rluid;//用户id
-	
+	private int rluid;// 用户id
+
 	@GeneratedValue
 	@Column(name = "rlidcard", nullable = false)
-	private String rlidcard;//身份证号码
-	
+	private String rlidcard;// 身份证号码
+
 	@GeneratedValue
 	@Column(name = "rlname", nullable = false)
-	private String rlname;//真实姓名
-	
+	private String rlname;// 真实姓名
+
 	@GeneratedValue
 	@Column(name = "rlfileurl", nullable = false)
-	private String rlfileurl;//真实资料地址
-	
+	private String rlfileurl;// 真实资料地址
+
 	@GeneratedValue
 	@Column(name = "rliconurl", nullable = false)
-	private String rliconurl;//真实头像
-	
+	private String rliconurl;// 真实头像
+
 	@GeneratedValue
 	@Column(name = "rladdr", nullable = false)
-	private String rladdr;//地址
-	
+	private String rladdr;// 地址
+
 	@GeneratedValue
 	@Column(name = "rlpost", nullable = false)
-	private String rlpost;//邮编
-	
+	private String rlpost;// 邮编
+
 	@GeneratedValue
 	@Column(name = "rlschool", nullable = false)
-	private String rlschool;//学校
-	
+	private String rlschool;// 学校
+
 	@GeneratedValue
 	@Column(name = "major", nullable = false)
-	private String major;//专业
-	
+	private String major;// 专业
+
 	@GeneratedValue
 	@Column(name = "qq", nullable = false)
-	private String qq;//绑定的qq
-	
+	private String qq;// 绑定的qq
+
 	@GeneratedValue
 	@Column(name = "rlis", nullable = false)
-	private String rlis;//是否认证为学生
-	
-	@GeneratedValue
-	@Column(name = "rltime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
-	private String rltime;//实名认证时间
+	private String rlis;// 是否认证为学生
 
-	
+	@GeneratedValue
+	@Column(name = "rltime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+	private String rltime;// 实名认证时间
 
 	public int getRlid() {
 		return rlid;
@@ -168,6 +166,5 @@ public class Real {
 	public void setRltime(String rltime) {
 		this.rltime = rltime;
 	}
-	
-	
+
 }

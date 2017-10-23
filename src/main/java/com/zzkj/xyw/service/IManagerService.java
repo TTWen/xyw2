@@ -13,6 +13,6 @@ public interface IManagerService {
 	public List<Manager> findAll();
 
 	public void delete(String[] mid);
-	
+
 	public Manager findById(int mid);
 }

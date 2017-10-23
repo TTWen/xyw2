@@ -53,9 +53,65 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 		getHibernateTemplate().delete(t);
 	}
 
+	// 按条件删除
+	public void delete(String criteria) {
+		// TODO Auto-generated method stub
+	
+		final String hql = "delete from " + cls.getSimpleName() + " where "
+				+ criteria;
+		getHibernateTemplate().execute(new HibernateCallback<T>() {
+	
+			public T doInHibernate(Session session) {
+				Query query = session.createQuery(hql);
+				query.executeUpdate();
+				return null;
+			}
+		});
+	}
+
+	// 批量删除，使用deleteAll效率低
+	public void delete(String[] ids, String idName) {
+		// TODO Auto-generated method stub
+		// String[] ids = lid;
+		String str = "";
+		for (int i = 0; i < ids.length; i++) {
+			str += "'" + ids[i] + "'";
+			if (i != (ids.length - 1))
+				str += ",";
+		}
+		final String hql = "delete from " + cls.getSimpleName() + " where "
+				+ idName + " in (" + str + ")";
+		getHibernateTemplate().execute(new HibernateCallback<T>() {
+	
+			public T doInHibernate(Session session) {
+				Query query = session.createQuery(hql);
+				query.executeUpdate();
+				return null;
+			}
+		});
+	}
+
 	public void update(T t) {
 
 		getHibernateTemplate().update(t);
+	}
+
+	public int cnt(String tblname) {
+	
+		// hibernate的count返回long型
+		String hql = "select count(1) from " + tblname;
+		return Integer.parseInt(String.valueOf(getHibernateTemplate().iterate(
+				hql).next()));
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(Criterion... criterions) {
+		// TODO Auto-generated method stub
+		DetachedCriteria criteria = DetachedCriteria.forClass(cls);
+		for (Criterion c : criterions) {
+			criteria.add(c);
+		}
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -70,20 +126,13 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 		return (List<T>) getHibernateTemplate().find(hql, param);
 	}
 
-	public int cnt(String tblname) {
-
-		// hibernate的count返回long型
-		String hql = "select count(1) from "+ tblname;
-		return Integer.parseInt(String.valueOf(getHibernateTemplate().iterate(
-				hql).next()));
-	}
-
 	@SuppressWarnings("unchecked")
 	public List<T> findByPage(int pageNow, int pageSize) {
 
 		HibernateTemplate ht = getHibernateTemplate();
 		DetachedCriteria criteria = DetachedCriteria.forClass(cls);
-		return (List<T>) ht.findByCriteria(criteria, pageNow*pageSize, pageSize);
+		return (List<T>) ht.findByCriteria(criteria, pageNow * pageSize,
+				pageSize);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -100,13 +149,13 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 			criteria.addOrder(Order.desc(orderBy));
 
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria,
-				pageNow*pageSize, pageSize);
+				pageNow * pageSize, pageSize);
 	}
 
 	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
 			boolean isAsc, float min, float max) {
 
-		findByPage(pageNow*pageSize, pageSize, orderBy, isAsc,
+		findByPage(pageNow * pageSize, pageSize, orderBy, isAsc,
 				Restrictions.between("bsalepr", min, max));
 		return null;
 	}
@@ -114,58 +163,15 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
 			boolean isAsc, String keyword) {
 
-		return findByPage(pageNow*pageSize, pageSize, orderBy, isAsc, Restrictions.or(
-				Restrictions.like("bname", keyword, MatchMode.ANYWHERE),
-				Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
-				Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
-	}
-
-	// 批量删除，使用deleteAll效率低
-	public void delete(String[] ids, String idName) {
-		// TODO Auto-generated method stub
-		// String[] ids = lid;
-		String str = "";
-		for (int i = 0; i < ids.length; i++) {
-			str += "'" + ids[i] + "'";
-			if (i != (ids.length - 1))
-				str += ",";
-		}
-		final String hql = "delete from "+ cls.getSimpleName() +
-				" where "+ idName +" in (" + str + ")";
-		getHibernateTemplate().execute(new HibernateCallback<T>() {
-
-            public T doInHibernate(Session session) {
-                Query query = session.createQuery(hql);
-                query.executeUpdate();
-                return null;
-            }
-        });
-	}
-	
-	// 按条件删除
-	public void delete(String criteria) {
-		// TODO Auto-generated method stub
-		
-		final String hql = "delete from "+ cls.getSimpleName() +
-				" where "+ criteria;
-		getHibernateTemplate().execute(new HibernateCallback<T>() {
-
-            public T doInHibernate(Session session) {
-                Query query = session.createQuery(hql);
-                query.executeUpdate();
-                return null;
-            }
-        });
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<T> findAll(Criterion... criterions) {
-		// TODO Auto-generated method stub
-		DetachedCriteria criteria = DetachedCriteria.forClass(cls);
-		for (Criterion c : criterions) {
-			criteria.add(c);
-		}
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+		return findByPage(
+				pageNow * pageSize,
+				pageSize,
+				orderBy,
+				isAsc,
+				Restrictions.or(
+						Restrictions.like("bname", keyword, MatchMode.ANYWHERE),
+						Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
+						Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
 	}
 
 	public List<T> findByKeyword(String keyword) {
@@ -175,6 +181,5 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 				Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
 				Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
 	}
-
 
 }

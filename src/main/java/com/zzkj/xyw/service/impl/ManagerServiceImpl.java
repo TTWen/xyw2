@@ -14,17 +14,17 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Autowired
 	private IManagerDAO mngDao;
-	
+
 	public void regist(Manager mng) {
 		// TODO Auto-generated method stub
-		
+
 		mngDao.add(mng);
 	}
 
 	public List<Manager> login(String mname, String mpsw) {
 		// TODO Auto-generated method stub
 		String hql = "from Manager m where m.mname=? and m.mpsw=?";
-		return mngDao.find(hql, new String[]{mname, mpsw});
+		return mngDao.find(hql, new String[] { mname, mpsw });
 	}
 
 	public List<Manager> findAll() {
@@ -39,9 +39,8 @@ public class ManagerServiceImpl implements IManagerService {
 
 	public Manager findById(int mid) {
 		// TODO Auto-generated method stub
-		
+
 		return mngDao.findById(mid);
 	}
 
-	
 }

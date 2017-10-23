@@ -8,5 +8,4 @@ import com.zzkj.xyw.model.User;
 @Repository("userDao")
 public class UserDAOImpl extends BaseDAOImpl<User, String> implements IUserDAO {
 
-	
 }

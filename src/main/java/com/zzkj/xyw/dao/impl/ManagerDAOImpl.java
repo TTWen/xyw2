@@ -6,6 +6,7 @@ import com.zzkj.xyw.dao.IManagerDAO;
 import com.zzkj.xyw.model.Manager;
 
 @Repository
-public class ManagerDAOImpl extends BaseDAOImpl<Manager, String> implements IManagerDAO {
+public class ManagerDAOImpl extends BaseDAOImpl<Manager, String> implements
+		IManagerDAO {
 
 }

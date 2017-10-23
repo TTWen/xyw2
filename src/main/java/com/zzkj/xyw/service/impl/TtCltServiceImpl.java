@@ -15,7 +15,7 @@ public class TtCltServiceImpl implements ITtCltService {
 
 	@Autowired
 	private ITtCltDAO ttCltDao;
-	
+
 	public void create(TtClt clt) {
 		// TODO Auto-generated method stub
 
@@ -30,14 +30,14 @@ public class TtCltServiceImpl implements ITtCltService {
 
 	public List<TtClt> findByPage(int pageNow, int pageSize, int cuid) {
 		// TODO Auto-generated method stub
-		return ttCltDao.findByPage(pageNow, pageSize, "ctime", false, 
+		return ttCltDao.findByPage(pageNow, pageSize, "ctime", false,
 				Restrictions.eq("cuid", cuid));
 	}
 
 	public int cnt(int uid) {
 		// TODO Auto-generated method stub
-		
-		return ttCltDao.cnt("TtClt where cuid="+uid);
+
+		return ttCltDao.cnt("TtClt where cuid=" + uid);
 	}
 
 }

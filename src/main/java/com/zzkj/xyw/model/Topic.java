@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 //主题
 @Entity
 @Table(name = "topic")
@@ -16,14 +15,14 @@ public class Topic {
 	@GeneratedValue
 	@Column(name = "tpid", nullable = false)
 	private int tpid;
-	
+
 	@Column(name = "tpuid", nullable = false)
 	private int tpuid;
-	
+
 	@Column(name = "tpcontent", nullable = false)
 	private String tpcontent;
-	
-	@Column(name = "tptime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+
+	@Column(name = "tptime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String tptime;
 
 	@Column(name = "tpttid", nullable = false)
@@ -68,6 +67,5 @@ public class Topic {
 	public void setTpttid(int tpttid) {
 		this.tpttid = tpttid;
 	}
-	
-	
+
 }

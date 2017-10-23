@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 //主题评论
 @Entity
 @Table(name = "remark")
@@ -16,19 +15,19 @@ public class Remark {
 	@GeneratedValue
 	@Column(name = "rid", nullable = false)
 	private int rid;
-	
+
 	@Column(name = "ruid", nullable = false)
 	private int ruid;
-	
+
 	@Column(name = "rduid", nullable = false)
 	private int rduid;
-	
+
 	@Column(name = "rcontent", nullable = false)
 	private String rcontent;
-	
-	@Column(name = "rtime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+
+	@Column(name = "rtime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String rtime;
-	
+
 	@Column(name = "rtpid", nullable = false)
 	private int rtpid;
 
@@ -80,5 +79,4 @@ public class Remark {
 		this.rtpid = rtpid;
 	}
 
-	
 }

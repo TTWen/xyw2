@@ -1,9 +1,7 @@
 package com.zzkj.xyw.util;
 
 import java.io.File;
-import java.util.List;
 
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UploadFile {
@@ -20,6 +18,5 @@ public class UploadFile {
 		file.transferTo(new File(path));
 		return path;
 	}
-	
-	
+
 }

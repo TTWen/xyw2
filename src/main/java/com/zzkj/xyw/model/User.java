@@ -22,8 +22,8 @@ public class User {
 	private String upsw;
 
 	@Column(name = "uicon", nullable = false)
-	private String uicon="/usericon/default.jepg";
-	
+	private String uicon = "/usericon/default.jepg";
+
 	@Column(name = "utel", nullable = true)
 	private String utel;
 
@@ -33,18 +33,18 @@ public class User {
 	@Column(name = "ubirth", nullable = true)
 	private String ubirth;
 
-	@Column(name = "uregtime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
+	@Column(name = "uregtime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String uregtime;
 
 	@Column(name = "usignature", nullable = true)
 	private String usignature;
 
 	@Column(name = "usex", nullable = false)
-	private String usex="";
+	private String usex = "";
 
 	@Column(name = "uisreal", nullable = false)
 	private String uisreal = "0";
-	
+
 	public String getUicon() {
 		return uicon;
 	}
@@ -142,5 +142,4 @@ public class User {
 				+ ", uisreal=" + uisreal + "]";
 	}
 
-	
 }

@@ -6,6 +6,7 @@ import com.zzkj.xyw.dao.ITopicDAO;
 import com.zzkj.xyw.model.Topic;
 
 @Repository("topicDao")
-public class TopicDAOImpl extends BaseDAOImpl<Topic, String> implements ITopicDAO{
+public class TopicDAOImpl extends BaseDAOImpl<Topic, String> implements
+		ITopicDAO {
 
 }
