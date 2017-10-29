@@ -28,7 +28,9 @@
 	</c:choose>
 	<a href="/xyw2/user/traveltip">攻略库</a>
 	<form action="/xyw2/search" method="post">
-		<input name="keyword" /> <input type="submit">
+		<input name="keyword" type="text"/> <input type="submit">
+		<input name="sort" type="hidden"/>
+		<input name="city" type="hidden"/>
 	</form>
 </body>
 </html>

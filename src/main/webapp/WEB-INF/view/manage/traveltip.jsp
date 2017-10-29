@@ -12,6 +12,11 @@
 	<c:if test="${crtmid == null }">
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
+	<form action="/xyw2/manage/traveltip" method="post">
+		查看未审核<input type="radio" name="isCheck" value="0">
+		查看全部<input type="radio" name="isCheck" value="1">
+		<input type="submit">
+	</form>
 	
 	<form action="/xyw2/manage/deleteTraveltip" method="post">
 		<c:forEach items="${traveltipList}" var="tt">
@@ -19,10 +24,15 @@
 				<input type="checkbox" name="ttid" value="${tt.ttid}">
 				<th>ttid:<c:out value="${tt.ttid}" /></th>
 				<th>tttitle：<c:out value="${tt.tttitle}" /></th>
+				<c:if test="${tt.ttischeck == 0}">
+					<a href="/xyw2/manage/checktt/${tt.ttid }">审核</a>
+				</c:if>
 			</tr>
 		</c:forEach>
+		
 		<input type="submit" value="删除" />
 	</form>
+
 
 	共
 	<c:out value="${allPages}" />

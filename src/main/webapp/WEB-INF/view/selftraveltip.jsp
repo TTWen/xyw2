@@ -16,6 +16,7 @@
 		
 		<c:if test="${ttop.tt.ttuid == crtuid }">
 		<a href="/xyw2/deleteTraveltip/${ttop.tt.ttid }">删除</a>
+		<a href="/xyw2/modifyTraveltip/${ttop.tt.ttid }">修改</a>
 		</c:if>
 		
 		
@@ -51,11 +52,11 @@
 	<c:out value="${pageNow + 1}" />
 	<br>
 	<c:if test="${pageNow > 0}">
-		<a href="/xyw2/user/traveltip/${pageNow - 1}">上</a>
+		<a href="/xyw2/user/selfTraveltip/${ttuid }/${pageNow - 1}">上</a>
 	</c:if>
 
 	<c:if test="${pageNow + 1 < allPages}">
-		<a href="/xyw2/user/traveltip/${pageNow + 1}">下</a>
+		<a href="/xyw2/user/selfTraveltip/${ttuid }/${pageNow + 1}">下</a>
 	</c:if>
 </body>
 </html>

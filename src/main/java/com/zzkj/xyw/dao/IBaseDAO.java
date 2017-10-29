@@ -25,25 +25,14 @@ public interface IBaseDAO<T, PK extends Serializable> {
 	// 根据id查询
 	public T findById(int id);
 
-	// 分页
+	// 默认分页
 	public List<T> findByPage(int pageNow, int pageSize);
 
-	// 按列排序
+	// 按条件分页
 	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
 			boolean isAsc, Criterion... criterions);
 
-	// 按价格区间
-	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
-			boolean isAsc, float min, float max);
-
-	// 关键字搜索书
-	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
-			boolean isAsc, String keyword);
-
 	public List<T> findAll(Criterion... criterions);
-
-	// 关键字搜索
-	public List<T> findByKeyword(String keyword);
 
 	// 总数
 	public int cnt(String tblname);

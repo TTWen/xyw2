@@ -9,7 +9,19 @@
 </head>
 <body>
 
-
+	<form action="/xyw2/search" method="post">
+		按热度降序<input type="radio" name="sort" value="10">
+		按热度升序<input type="radio" name="sort" value="11">
+		按时间降序<input type="radio" name="sort" value="00">
+		按时间升序<input type="radio" name="sort" value="01">
+		城市
+		<input type="checkbox" name="city" value="北京">
+		<input type="checkbox" name="city" value="上海">
+		<input type="checkbox" name="city" value="南京">
+		<input type="text" name="keyword" value="${search.keyword }"/>
+		<input type="submit">
+	</form>
+	
 	<c:forEach items="${ttopList }" var="ttop">
 		<tr>
 		<a href="/xyw2/traveltipDetail/${ttop.tt.ttid}"><c:out value="${ttop.tt.ttid }"></c:out></a>
@@ -17,8 +29,6 @@
 		<c:if test="${ttop.tt.ttuid == crtuid }">
 		<a href="/xyw2/deleteTraveltip/${ttop.tt.ttid }">删除</a>
 		</c:if>
-		
-		
 		<c:choose>
 			<c:when test="${ttop.like == 0}">
 				<th>
@@ -51,11 +61,11 @@
 	<c:out value="${pageNow + 1}" />
 	<br>
 	<c:if test="${pageNow > 0}">
-		<a href="/xyw2/user/traveltip/${pageNow - 1}">上</a>
+		<a href="/xyw2/search/${pageNow - 1}">上</a>
 	</c:if>
 
 	<c:if test="${pageNow + 1 < allPages}">
-		<a href="/xyw2/user/traveltip/${pageNow + 1}">下</a>
+		<a href="/xyw2/search/${pageNow + 1}">下</a>
 	</c:if>
 </body>
 </html>

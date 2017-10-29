@@ -12,9 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -56,11 +54,11 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 	// 按条件删除
 	public void delete(String criteria) {
 		// TODO Auto-generated method stub
-	
+
 		final String hql = "delete from " + cls.getSimpleName() + " where "
 				+ criteria;
 		getHibernateTemplate().execute(new HibernateCallback<T>() {
-	
+
 			public T doInHibernate(Session session) {
 				Query query = session.createQuery(hql);
 				query.executeUpdate();
@@ -82,7 +80,7 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 		final String hql = "delete from " + cls.getSimpleName() + " where "
 				+ idName + " in (" + str + ")";
 		getHibernateTemplate().execute(new HibernateCallback<T>() {
-	
+
 			public T doInHibernate(Session session) {
 				Query query = session.createQuery(hql);
 				query.executeUpdate();
@@ -97,7 +95,7 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 	}
 
 	public int cnt(String tblname) {
-	
+
 		// hibernate的count返回long型
 		String hql = "select count(1) from " + tblname;
 		return Integer.parseInt(String.valueOf(getHibernateTemplate().iterate(
@@ -150,36 +148,6 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria,
 				pageNow * pageSize, pageSize);
-	}
-
-	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
-			boolean isAsc, float min, float max) {
-
-		findByPage(pageNow * pageSize, pageSize, orderBy, isAsc,
-				Restrictions.between("bsalepr", min, max));
-		return null;
-	}
-
-	public List<T> findByPage(int pageNow, int pageSize, String orderBy,
-			boolean isAsc, String keyword) {
-
-		return findByPage(
-				pageNow * pageSize,
-				pageSize,
-				orderBy,
-				isAsc,
-				Restrictions.or(
-						Restrictions.like("bname", keyword, MatchMode.ANYWHERE),
-						Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
-						Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
-	}
-
-	public List<T> findByKeyword(String keyword) {
-		// TODO Auto-generated method stub
-		return findAll(Restrictions.or(
-				Restrictions.like("bname", keyword, MatchMode.ANYWHERE),
-				Restrictions.like("bauth", keyword, MatchMode.ANYWHERE),
-				Restrictions.like("bisbn", keyword, MatchMode.ANYWHERE)));
 	}
 
 }

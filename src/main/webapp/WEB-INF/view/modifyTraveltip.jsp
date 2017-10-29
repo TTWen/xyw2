@@ -11,12 +11,14 @@
 	<c:if test="${crtuid == null }">
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
-	<form action="/xyw2/traveltip/add" method="post" enctype="multipart/form-data">
-		tttitle:<input type="text" name="tttitle" /><br> 
-		<input type="file" name="file"><br>
-		ttcity:<input type="text" name="ttcity" /><br>
-		ttcontent:<textarea rows="" cols="" name="ttcontent"></textarea>
+	<form action="/xyw2/traveltip/modify" method="post" enctype="multipart/form-data">
+		tttitle:<input type="text" name="tttitle" value="${tt.tttitle }" /><br> 
+		<img alt="" src="${tt.ttpic }">
+		<input type="file" name="file" value=""/><br>
+		ttcity:<input type="text" name="ttcity" value="${tt.ttcity }"/><br>
+		ttcontent:<textarea rows="" cols="" name="ttcontent" >${tt.ttcontent }</textarea>
 		<input type="hidden" name="ttuid" value="${crtuid }">
+		<input type="hidden" name="ttid" value="${tt.ttid }">
 		<input type="submit" />
 	</form>
 </body>

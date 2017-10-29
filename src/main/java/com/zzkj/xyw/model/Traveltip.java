@@ -47,7 +47,7 @@ public class Traveltip {
 	@GeneratedValue
 	@Column(name = "ttpic", nullable = false)
 	private String ttpic = "/traveltippic/default.jpg"; // 封面图
-	
+
 	@GeneratedValue
 	@Column(name = "ttischeck", nullable = false)
 	private int ttischeck = 0;// 是否审核
@@ -128,7 +128,6 @@ public class Traveltip {
 		this.ttpic = ttpic;
 	}
 
-	
 	public int getTtischeck() {
 		return ttischeck;
 	}
