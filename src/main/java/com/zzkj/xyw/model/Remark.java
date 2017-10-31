@@ -30,6 +30,9 @@ public class Remark {
 
 	@Column(name = "rtpid", nullable = false)
 	private int rtpid;
+	
+	@Column(name = "rttid", nullable = false)
+	private int rttid;
 
 	public int getRid() {
 		return rid;
@@ -79,4 +82,13 @@ public class Remark {
 		this.rtpid = rtpid;
 	}
 
+	public int getRttid() {
+		return rttid;
+	}
+
+	public void setRttid(int rttid) {
+		this.rttid = rttid;
+	}
+
+	
 }

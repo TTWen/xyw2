@@ -2,39 +2,45 @@ package com.zzkj.xyw.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zzkj.xyw.dao.INoticeDAO;
-import com.zzkj.xyw.model.Notice;
+import com.zzkj.xyw.dao.ISceneDAO;
+import com.zzkj.xyw.model.Scene;
 import com.zzkj.xyw.service.ISceneService;
 
 @Service("sceneService")
 public class SceneServiceImpl implements ISceneService {
 
 	@Autowired
-	private INoticeDAO noticeDao;
+	private ISceneDAO sceneDao;
 
-	public void create(Notice ntc) {
+	public void create(Scene ntc) {
 		// TODO Auto-generated method stub
-		noticeDao.add(ntc);
+		sceneDao.add(ntc);
 	}
 
-	public List<Notice> findByPage(int pageNow, int pageSize) {
+	public List<Scene> findByPage(int pageNow, int pageSize, Criterion c) {
 		// TODO Auto-generated method stub
-		return noticeDao.findByPage(pageNow, pageSize);
+		return sceneDao.findByPage(pageNow, pageSize, "sid", true, c);
 	}
 
-	public void delete(String[] nid) {
+	public void delete(String[] id) {
 		// TODO Auto-generated method stub
-		noticeDao.delete(nid, "nid");
+		sceneDao.delete(id, "sid");
 
 	}
 
-	public int noticeCnt() {
+	public int cnt(Criterion c) {
 		// TODO Auto-generated method stub
 
-		return noticeDao.cnt("Notice");
+		return sceneDao.findAll(c).size();
+	}
+
+	public void update(Scene scene) {
+		// TODO Auto-generated method stub
+		sceneDao.update(scene);
 	}
 
 }

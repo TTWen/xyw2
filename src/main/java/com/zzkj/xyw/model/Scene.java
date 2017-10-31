@@ -27,9 +27,13 @@ public class Scene {
 	private String spic="/scenepic/default.jpg";
 	
 	@GeneratedValue
-	@Column(name = "sname", nullable = false)
-	private String sname;
+	@Column(name = "scity", nullable = false)
+	private String scity;
 
+	@GeneratedValue
+	@Column(name = "sprovince", nullable = true)
+	private String sprovince;
+	
 	public int getSid() {
 		return sid;
 	}
@@ -54,12 +58,20 @@ public class Scene {
 		this.spic = spic;
 	}
 
-	public String getSname() {
-		return sname;
+	public String getScity() {
+		return scity;
 	}
 
-	public void setSname(String sname) {
-		this.sname = sname;
+	public void setScity(String scity) {
+		this.scity = scity;
+	}
+
+	public String getSprovince() {
+		return sprovince;
+	}
+
+	public void setSprovince(String sprovince) {
+		this.sprovince = sprovince;
 	}
 
 	

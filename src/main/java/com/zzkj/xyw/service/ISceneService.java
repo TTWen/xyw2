@@ -2,19 +2,24 @@ package com.zzkj.xyw.service;
 
 import java.util.List;
 
-import com.zzkj.xyw.model.Notice;
+import org.hibernate.criterion.Criterion;
+
+import com.zzkj.xyw.model.Scene;
 
 public interface ISceneService {
 
 	// C
-	public void create(Notice ntc);
+	public void create(Scene scene);
 
 	// R
-	public List<Notice> findByPage(int pageNow, int pageSize);
+	public List<Scene> findByPage(int pageNow, int pageSize, Criterion c);
 
 	// D
-	public void delete(String[] nid);
+	public void delete(String[] id);
 
 	// cnt
-	public int noticeCnt();
+	public int cnt(Criterion c);
+	
+	// U
+	public void update(Scene scene);
 }

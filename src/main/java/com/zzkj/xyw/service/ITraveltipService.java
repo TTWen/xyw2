@@ -39,6 +39,4 @@ public interface ITraveltipService {
 	public int ttCnt();
 	
 	public int cnt(Criterion criterion);
-	
-
 }

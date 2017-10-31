@@ -263,7 +263,7 @@ public class TraveltipController {
 		return "/search";
 	} 
 	
-	// keyword的传递
+	// 查询攻略关键字keyword的传递
 	@RequestMapping(value = "/search/{pageNow}")
 	public String traveltipSearch2(@PathVariable Integer pageNow, Model model,
 			HttpSession session) {
@@ -376,7 +376,12 @@ public class TraveltipController {
 		int crtuid = (Integer) session.getAttribute("crtuid");
 		TraveltipOp ttop = new TraveltipOp();
 		List<Traveltip> traveltipList = new ArrayList<Traveltip>();
-		traveltipList.add(traveltipService.findById(ttid));
+		Traveltip tt = traveltipService.findById(ttid);
+		// 点开攻略详情 攻略浏览数加 1
+		tt.setTtview(tt.getTtview() + 1);
+		traveltipService.update(tt);
+		
+		traveltipList.add(tt);
 		List<TraveltipOp> ttopList = ttLikeService.findAll(traveltipList, crtuid);
 		ttop = ttopList.get(0);
 		model.addAttribute("ttop", ttop);
