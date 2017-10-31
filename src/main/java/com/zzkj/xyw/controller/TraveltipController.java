@@ -151,7 +151,7 @@ public class TraveltipController {
 		return "/success";
 	}
 
-	// 用户修改攻略
+	// 用户修改攻略页面
 	@RequestMapping(value = "/modifyTraveltip/{ttid}")
 	public String modifyTraveltip(@PathVariable int ttid, Model model,
 			HttpSession session) throws Exception {
@@ -199,7 +199,7 @@ public class TraveltipController {
 		return "/success";
 	}
 
-	// 攻略一览
+	// 攻略库
 	@RequestMapping("/user/traveltip")
 	public String traveltipList(Integer pageNow, Model model,
 			HttpSession session) {
@@ -233,6 +233,7 @@ public class TraveltipController {
 	}
 
 	// 关键字查找攻略
+	// 先在session中设置查询条件
 	@RequestMapping(value = "/search")
 	public String setSearch(Search sc, Model model, HttpSession session) {
 		
@@ -419,7 +420,7 @@ public class TraveltipController {
 		return "/addTraveltip";
 	}
 
-	// 攻略一览
+	// 用户主页攻略
 	@RequestMapping("/user/selfTraveltip/{ttuid}")
 	public String selfTraveltip(@PathVariable int ttuid,Integer pageNow,
 			Model model, HttpSession session) {

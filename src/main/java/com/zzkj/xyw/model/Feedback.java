@@ -18,7 +18,7 @@ public class Feedback {
 	private int fid;
 	
 	@GeneratedValue
-	@Column(name = "ftime", nullable = false)
+	@Column(name = "ftime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String ftime;
 	
 	@GeneratedValue
@@ -29,6 +29,11 @@ public class Feedback {
 	@Column(name = "ftel", nullable = true)
 	private String ftel;
 
+	
+	@GeneratedValue
+	@Column(name = "fstate", nullable = false)
+	private int fstate = 0;
+	
 	public int getFid() {
 		return fid;
 	}
@@ -59,6 +64,14 @@ public class Feedback {
 
 	public void setFtel(String ftel) {
 		this.ftel = ftel;
+	}
+
+	public int getFstate() {
+		return fstate;
+	}
+
+	public void setFstate(int fstate) {
+		this.fstate = fstate;
 	}
 	
 	

@@ -11,14 +11,17 @@
 
 	<c:choose>
 		<c:when test="${crtuid == null}">
+		
 			<a href="/xyw2/user/login">登录</a>
 			<a href="/xyw2/user/register">注册</a>
+			
 		</c:when>
 
 		<c:otherwise>
 			<a href="/xyw2/addTraveltip">发表攻略</a>
 			<a href="/xyw2/user/info">个人信息</a>
 			<a href="/xyw2/user/logout">注销</a>
+			<a href="/xyw2/user/selfTraveltip/${crtuid }">个人攻略</a>
 			<img src="${crtuser.uicon}">
 			<form action="/xyw2/user/modifyIcon" method="post"
 				enctype="multipart/form-data">
@@ -26,7 +29,10 @@
 			</form>
 		</c:otherwise>
 	</c:choose>
+	<a href="/xyw2/user/feedback">反馈</a>
 	<a href="/xyw2/user/traveltip">攻略库</a>
+	<a href="/xyw2/user/scene">热门景点</a>
+	
 	<form action="/xyw2/search" method="post">
 		<input name="keyword" type="text"/> <input type="submit">
 		<input name="sort" type="hidden"/>
