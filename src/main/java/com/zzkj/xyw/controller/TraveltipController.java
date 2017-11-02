@@ -49,16 +49,16 @@ public class TraveltipController {
 
 	// 管理界面攻略一览
 	@RequestMapping("/manage/traveltip")
-	public String setIsCheck(Model model,Integer isCheck, HttpSession session){
-		
-		if(isCheck == null) {
+	public String setIsCheck(Model model, Integer isCheck, HttpSession session) {
+
+		if (isCheck == null) {
 			isCheck = 0;
 		}
 		session.setAttribute("isCheck", isCheck);
 		return traveltipManage(0, model, session);
 	}
 
-	public String traveltipManage(Integer pageNow, Model model, 
+	public String traveltipManage(Integer pageNow, Model model,
 			HttpSession session) {
 
 		Integer isCheck = (Integer) session.getAttribute("isCheck");
@@ -71,9 +71,9 @@ public class TraveltipController {
 
 		Criterion c = null;
 		// ischeck为1表示显示所有攻略
-		if(isCheck == 1){
+		if (isCheck == 1) {
 			c = Restrictions.ge("ttid", 1);
-		// ischeck为0表示显示未审核攻略
+			// ischeck为0表示显示未审核攻略
 		} else {
 			c = Restrictions.eq("ttischeck", 0);
 		}
@@ -81,12 +81,12 @@ public class TraveltipController {
 		cnt = traveltipService.cnt(c);
 		ControllerUtil.addParam(model, pageSize, pageNow, traveltipList,
 				"traveltipList", cnt);
-		
+
 		return "/manage/traveltip";
 	}
 
 	@RequestMapping(value = "/manage/traveltip/{pageNow}")
-	public String traveltipManage2(@PathVariable int pageNow, Model model, 
+	public String traveltipManage2(@PathVariable int pageNow, Model model,
 			HttpSession session) {
 
 		return traveltipManage(pageNow, model, session);
@@ -100,7 +100,7 @@ public class TraveltipController {
 		traveltipService.delete(ttid);
 		return traveltipManage(0, model, session);
 	}
-	
+
 	// 管理员审核
 	@RequestMapping(value = "/manage/checktt/{ttid}")
 	public String checktt(@PathVariable int ttid, Model model) {
@@ -109,7 +109,7 @@ public class TraveltipController {
 		model.addAttribute("tt", tt);
 		return "/manage/checktt";
 	}
-	
+
 	// 审核通过
 	@RequestMapping(value = "/manage/checkPass/{ttid}")
 	public String checkPass(@PathVariable int ttid, Model model) {
@@ -120,13 +120,13 @@ public class TraveltipController {
 		model.addAttribute("tt", tt);
 		return "/success";
 	}
-	
+
 	// 审核未通过，删除
 	@RequestMapping(value = "/manage/checkUnpass/{ttid}")
 	public String checkUnpass(@PathVariable int ttid, Model model) {
 
-		traveltipService.delete(new String[]{String.valueOf(ttid)});
-		
+		traveltipService.delete(new String[] { String.valueOf(ttid) });
+
 		return "/success";
 	}
 
@@ -158,22 +158,22 @@ public class TraveltipController {
 
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
 		Traveltip tt = traveltipService.findById(ttid);
-		if(tt.getTtuid() != crtuid) {
+		if (tt.getTtuid() != crtuid) {
 			return "/error";
 		}
 		model.addAttribute("tt", tt);
 		return "/modifyTraveltip";
 	}
-	
+
 	// 修改攻略
 	@RequestMapping(value = "/traveltip/modify")
-	public String modifyTraveltip(Traveltip tt, Model model, MultipartFile file, 
-			HttpSession session) throws Exception {
+	public String modifyTraveltip(Traveltip tt, Model model,
+			MultipartFile file, HttpSession session) throws Exception {
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
-		if(tt.getTtuid() != crtuid) {
+		if (tt.getTtuid() != crtuid) {
 			return "/error";
 		}
-		if ( !file.isEmpty()) {
+		if (!file.isEmpty()) {
 			String ttpic = UploadFile.doUpload("F:/xyw/traveltippic/", file,
 					tt.getTtid());
 			tt.setTtpic(ttpic.substring(6));
@@ -184,7 +184,7 @@ public class TraveltipController {
 		traveltipService.update(tt);
 		return "/success";
 	}
-	
+
 	// 用户删除攻略
 	@RequestMapping(value = "/traveltip/delete/{ttid}")
 	public String deleteTraveltip(@PathVariable int ttid, Model model,
@@ -192,7 +192,7 @@ public class TraveltipController {
 
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
 		Traveltip tt = traveltipService.findById(ttid);
-		if(tt.getTtuid() != crtuid) {
+		if (tt.getTtuid() != crtuid) {
 			return "/error";
 		}
 		traveltipService.delete(new String[] { String.valueOf(ttid) });
@@ -217,7 +217,7 @@ public class TraveltipController {
 
 		// 用户对当前页攻略的操作记录list
 		ttopList = ttLikeService.findAll(traveltipList, crtuid);
-		
+
 		cnt = traveltipService.ttCnt();
 		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList",
 				cnt);
@@ -236,33 +236,34 @@ public class TraveltipController {
 	// 先在session中设置查询条件
 	@RequestMapping(value = "/search")
 	public String setSearch(Search sc, Model model, HttpSession session) {
-		
+
 		session.setAttribute("search", sc);
 		return traveltipSearch(0, model, session);
 	}
-	
-	public String traveltipSearch(Integer pageNow, Model model, HttpSession session) {
+
+	public String traveltipSearch(Integer pageNow, Model model,
+			HttpSession session) {
 
 		int pageSize = 2;
 		int cnt = 0;
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
-		
+
 		List<TraveltipOp> ttopList = new ArrayList<TraveltipOp>();
 		List<Traveltip> traveltipList = new ArrayList<Traveltip>();
 		cnt = traveltipService.cnt(pageNow, pageSize, traveltipList, session);
 
 		// 没有找到符合条件的数据
-		if(cnt == 0){ 
+		if (cnt == 0) {
 			model.addAttribute("msg", "未找到符合条件的攻略！");
 			return "/search";
 		}
 		ttopList = ttLikeService.findAll(traveltipList, crtuid);
-		
+
 		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList",
 				cnt);
 		return "/search";
-	} 
-	
+	}
+
 	// 查询攻略关键字keyword的传递
 	@RequestMapping(value = "/search/{pageNow}")
 	public String traveltipSearch2(@PathVariable Integer pageNow, Model model,
@@ -347,15 +348,16 @@ public class TraveltipController {
 		List<TtClt> ttcltList = null;
 		List<Traveltip> traveltipList = new ArrayList<Traveltip>();
 		int crtuid = (Integer) session.getAttribute("crtuid");
-		
+
 		ttcltList = ttCltService.findByPage(pageNow, pageSize, crtuid);
 		for (TtClt ttClt : ttcltList) {
 			traveltipList.add(traveltipService.findById(ttClt.getCttid()));
 		}
-		
-		List<TraveltipOp> ttopList = ttLikeService.findAll(traveltipList, crtuid);
+
+		List<TraveltipOp> ttopList = ttLikeService.findAll(traveltipList,
+				crtuid);
 		cnt = ttCltService.cnt(crtuid);
-		
+
 		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList",
 				cnt);
 		return "/ttclt";
@@ -380,9 +382,10 @@ public class TraveltipController {
 		// 点开攻略详情 攻略浏览数加 1
 		tt.setTtview(tt.getTtview() + 1);
 		traveltipService.update(tt);
-		
+
 		traveltipList.add(tt);
-		List<TraveltipOp> ttopList = ttLikeService.findAll(traveltipList, crtuid);
+		List<TraveltipOp> ttopList = ttLikeService.findAll(traveltipList,
+				crtuid);
 		ttop = ttopList.get(0);
 		model.addAttribute("ttop", ttop);
 
@@ -427,7 +430,7 @@ public class TraveltipController {
 
 	// 用户主页攻略
 	@RequestMapping("/user/selfTraveltip/{ttuid}")
-	public String selfTraveltip(@PathVariable int ttuid,Integer pageNow,
+	public String selfTraveltip(@PathVariable int ttuid, Integer pageNow,
 			Model model, HttpSession session) {
 
 		int pageSize = 2;
@@ -439,18 +442,18 @@ public class TraveltipController {
 		List<TraveltipOp> ttopList = null;
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
 		Criterion c = Restrictions.eq("ttuid", ttuid);
-		traveltipList = traveltipService.findByPage(pageNow, pageSize,c);
+		traveltipList = traveltipService.findByPage(pageNow, pageSize, c);
 
 		// 用户对当前页攻略的操作记录list
 		ttopList = ttLikeService.findAll(traveltipList, crtuid);
-		
+
 		cnt = traveltipService.cnt(c);
 		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList",
 				cnt);
 
 		return "/selfTraveltip";
 	}
-	
+
 	@RequestMapping("/user/selfTraveltip/{ttuid}/{pageNow}")
 	public String selfTraveltip2(@PathVariable int ttuid,
 			@PathVariable Integer pageNow, Model model, HttpSession session) {

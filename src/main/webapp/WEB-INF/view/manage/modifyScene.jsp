@@ -11,11 +11,14 @@
 	<c:if test="${crtmid == null }">
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
-	<form action="/xyw2/manage/addScene" method="post" enctype="multipart/form-data">
-		sprovince:<input type="text" name="sprovince" /><br> 
-		<input type="file" name="file"><br>
-		scity:<input type="text" name="scity" /><br>
-		sintrod:<textarea rows="" cols="" name="sintrod"></textarea>
+	
+	<form action="/xyw2/manage/modifyScene" method="post" enctype="multipart/form-data">
+		sprovince:<input type="text" name="sprovince" value="${scene.sprovince}" /><br> 
+		scity:<input type="text" name="scity" value="${scene.scity }"/><br>
+		<img alt="" src="${scene.spic }">
+		<input type="file" name="file"/><br>
+		sintrod:<textarea rows="" cols="" name="sintrod" >${scene.sintrod}</textarea>
+		<input type="hidden" name="sid" value="${scene.sid }">
 		<input type="submit" />
 	</form>
 </body>

@@ -40,14 +40,14 @@ public class TtLikeServiceImpl implements ITtLikeService {
 
 	// 用户对当前页攻略的操作记录list
 	public List<TraveltipOp> findAll(List<Traveltip> traveltipList, Integer luid) {
-		
+
 		List<TraveltipOp> ttopList = new ArrayList<TraveltipOp>();
 		// 当前页攻略id组成的list
 		List<Integer> ttids = new ArrayList<Integer>();
-		
+
 		int i = 0;
 		for (Traveltip tt : traveltipList) {
-			
+
 			ttids.add(tt.getTtid());
 			// ttopList 初始化
 			ttopList.add(new TraveltipOp());
@@ -56,16 +56,16 @@ public class TtLikeServiceImpl implements ITtLikeService {
 			ttopList.get(i).setLike(0);
 			i++;
 		}
-		
-		// 当前用户已登录
-		if(luid != null) {
-			List<TtLike> like = ttLikeDao
-					.findAll(Restrictions.and(Restrictions.in("lttid", ttids),
-							Restrictions.eq("luid", luid)));
 
-			List<TtClt> clt = ttCltDao
-					.findAll(Restrictions.and(Restrictions.in("cttid", ttids),
-							Restrictions.eq("cuid", luid)));
+		// 当前用户已登录
+		if (luid != null) {
+			List<TtLike> like = ttLikeDao.findAll(Restrictions.and(
+					Restrictions.in("lttid", ttids),
+					Restrictions.eq("luid", luid)));
+
+			List<TtClt> clt = ttCltDao.findAll(Restrictions.and(
+					Restrictions.in("cttid", ttids),
+					Restrictions.eq("cuid", luid)));
 
 			List<Integer> likettid = new ArrayList<Integer>();
 			List<Integer> cltttid = new ArrayList<Integer>();
@@ -88,7 +88,7 @@ public class TtLikeServiceImpl implements ITtLikeService {
 				if (cltttid.contains(ttid)) {
 					ttopList.get(j).setClt(1);
 				}
-				
+
 				j++;
 			}
 		}

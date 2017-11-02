@@ -16,11 +16,12 @@ public interface IFeedbackService {
 	public List<Feedback> findByPage(int pageNow, int pageSize, Criterion c);
 
 	public Feedback findById(int id);
+
 	// D
 	public void delete(String[] id);
 
 	// cnt
 	public int cnt(Criterion c);
-	
+
 	public void update(Feedback fb);
 }

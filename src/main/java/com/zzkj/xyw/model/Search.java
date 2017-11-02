@@ -3,12 +3,11 @@ package com.zzkj.xyw.model;
 public class Search {
 
 	private String keyword;
-	
+
 	private String city;
-	
+
 	private String sort;
 
-	
 	@Override
 	public String toString() {
 		return "Search [keyword=" + keyword + ", city=" + city + ", sort="
@@ -38,5 +37,5 @@ public class Search {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
-	
+
 }

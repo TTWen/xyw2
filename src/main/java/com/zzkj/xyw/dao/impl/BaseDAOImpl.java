@@ -150,4 +150,16 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 				pageNow * pageSize, pageSize);
 	}
 
+	public List findCol(final String hql) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unchecked")
+		List list = getHibernateTemplate().execute(new HibernateCallback() {
+			public List doInHibernate(Session session) {
+				Query query = session.createQuery(hql);
+				return query.list();
+			}
+		});
+		return list;
+	}
+
 }

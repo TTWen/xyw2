@@ -14,6 +14,7 @@ public interface ITtLikeService {
 	// R
 
 	public List<TraveltipOp> findAll(List<Traveltip> traveltipList, Integer luid);
+
 	// D
 	public void delete(String criteria);
 }

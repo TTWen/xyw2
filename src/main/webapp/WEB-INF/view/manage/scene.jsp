@@ -15,13 +15,20 @@
 
 	<a href="/xyw2/manage/scene/add">添加景点</a>
 	
+	<form action="/xyw2/manage/scene" method="post">
+		选择省份：<input type="text" name="province"/>
+		<input type="submit">
+	</form>
+	
 	<c:forEach items="${sceneList}" var="s">
 		<tr>
 			<th>sid:<c:out value="${s.sid}" /></th>
 			<th>scity：<c:out value="${s.scity}" /></th>
 			<th>sprovince：<c:out value="${s.sprovince}" /></th>
+			<th>spic：<c:out value="${s.spic}" /></th>
+			<th>sview：<c:out value="${s.sview}" /></th>
 			<a href="/xyw2/manage/scene/modify/${s.sid }">修改</a>
-			<a href="/xyw2/manage/scene/delete/${s.sid }">删除</a>
+			<a href="/xyw2/manage/deleteScene/${s.sid }">删除</a>
 		</tr>
 	</c:forEach>
 

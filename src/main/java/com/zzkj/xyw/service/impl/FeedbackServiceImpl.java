@@ -39,13 +39,13 @@ public class FeedbackServiceImpl implements IFeedbackService {
 
 	public Feedback findById(int id) {
 		// TODO Auto-generated method stub
-		
+
 		return feedbackDao.findById(id);
 	}
-	
+
 	public void update(Feedback fb) {
 		// TODO Auto-generated method stub
-		
+
 		feedbackDao.update(fb);
 	}
 

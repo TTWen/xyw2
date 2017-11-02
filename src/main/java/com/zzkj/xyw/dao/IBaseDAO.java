@@ -40,4 +40,7 @@ public interface IBaseDAO<T, PK extends Serializable> {
 	// 根据具体的hql语句查找实体类
 	public List<T> find(String hql, String[] param);
 
+	// 查找列
+	public List findCol(String hql);
+
 }

@@ -30,7 +30,7 @@ public class Remark {
 
 	@Column(name = "rtpid", nullable = false)
 	private int rtpid;
-	
+
 	@Column(name = "rttid", nullable = false)
 	private int rttid;
 
@@ -90,5 +90,4 @@ public class Remark {
 		this.rttid = rttid;
 	}
 
-	
 }

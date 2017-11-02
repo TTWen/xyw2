@@ -34,48 +34,49 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		// TODO Auto-generated method stub
 		return traveltipDao.findByPage(pageNow, pageSize, "ttlike", false);
 	}
-	
+
 	// 按查询条件查询攻略list
-	public int cnt(Integer pageNow, int pageSize, 
-			List<Traveltip> traveltipList, HttpSession session){
-		
+	public int cnt(Integer pageNow, int pageSize,
+			List<Traveltip> traveltipList, HttpSession session) {
+
 		Search sc = (Search) session.getAttribute("search");
-		
+
 		if (pageNow == null) {
 			pageNow = 0;
 		}
-		
+
 		String kword = sc.getKeyword();
 		String sort = sc.getSort();
 		String city = sc.getCity();
 		// 关键字模糊查询
-		SimpleExpression se1= Restrictions.like("tttitle", kword, MatchMode.ANYWHERE);
-		SimpleExpression se2= Restrictions.like("ttcontent", kword, MatchMode.ANYWHERE);
-		SimpleExpression se3= Restrictions.like("ttcity", kword, MatchMode.ANYWHERE);
-		
-		SimpleExpression secity = null;
+		SimpleExpression se1 = Restrictions.like("tttitle", kword,
+				MatchMode.ANYWHERE);
+		SimpleExpression se2 = Restrictions.like("ttcontent", kword,
+				MatchMode.ANYWHERE);
+		SimpleExpression se3 = Restrictions.like("ttcity", kword,
+				MatchMode.ANYWHERE);
+
+		SimpleExpression secity = Restrictions.ge("ttid", 1);
 		// 默认按照热度降序排列
 		String orderBy = "ttlike";
 		boolean isAsc = false;
-		
+
 		// 选择攻略城市
-		if(city != null) {
+		if (city != null) {
 			secity = Restrictions.like("ttcity", city, MatchMode.ANYWHERE);
-		} else {
-			secity = Restrictions.ge("ttid", 1);
 		}
-		
+
 		// 第一位1 按照ttlike
 		// 第一位0 按照ttime
 		// 第二位 0 降序 1 升序
-		if(sort != null) {
-			if("10".equals(sort)) {
+		if (sort != null) {
+			if ("10".equals(sort)) {
 				orderBy = "ttlike";
 				isAsc = false;
-			} else if ("11".equals(sort)){
+			} else if ("11".equals(sort)) {
 				orderBy = "ttlike";
 				isAsc = true;
-			} else if ("01".equals(sort)){
+			} else if ("01".equals(sort)) {
 				orderBy = "ttime";
 				isAsc = true;
 			} else if ("00".equals(sort)) {
@@ -84,14 +85,13 @@ public class TraveltipServiceImpl implements ITraveltipService {
 			}
 		}
 		// 合并所有查询条件
-		LogicalExpression le = Restrictions.and(
-				Restrictions.or(se1,se2,se3), secity);
+		LogicalExpression le = Restrictions.and(Restrictions.or(se1, se2, se3),
+				secity);
 		traveltipList.addAll(traveltipDao.findByPage(pageNow, pageSize,
 				orderBy, isAsc, le));
 		return traveltipList.size();
 	}
-	
-	
+
 	public void delete(String[] ttid) {
 		// TODO Auto-generated method stub
 
@@ -116,7 +116,7 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		tt2.setTtime(tt.getTtime());
 		// 修改后变为未审核
 		tt2.setTtischeck(0);
-		if(!"0".equals(tt.getTtpic())) {
+		if (!"0".equals(tt.getTtpic())) {
 			tt2.setTtpic(tt.getTtpic());
 		}
 		traveltipDao.update(tt2);
@@ -130,16 +130,16 @@ public class TraveltipServiceImpl implements ITraveltipService {
 
 	public int cnt(Criterion criterion) {
 		// TODO Auto-generated method stub
-		
+
 		return traveltipDao.findAll(criterion).size();
 	}
 
 	public List<Traveltip> findByPage(int pageNow, int pageSize,
 			Criterion... criterion) {
 		// TODO Auto-generated method stub
-		
-		return traveltipDao.findByPage(pageNow, pageSize, "ttime", false, criterion);
-	}
 
+		return traveltipDao.findByPage(pageNow, pageSize, "ttime", false,
+				criterion);
+	}
 
 }
